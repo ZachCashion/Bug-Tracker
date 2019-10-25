@@ -1,8 +1,7 @@
 ﻿@model Bug_Tracker.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
-<hr />
+
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {
@@ -14,13 +13,21 @@
         </div>
     }
     else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl, @class = "user" })) {
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
                         <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
                     }
+
+                    <a href="index.html" class="btn btn-google btn-user btn-block">
+                        <i class="fab fa-google fa-fw"></i> Login with Google
+                    </a>
+                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                    </a>
                 </p>
             </div>
         }

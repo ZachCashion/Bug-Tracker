@@ -205,7 +205,6 @@
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Images\Profile.JPG" />
     <Content Include="Images\undraw_posting_photo.svg" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -226,7 +225,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -298,6 +296,9 @@
     <Content Include="Views\TicketTypes\Details.cshtml" />
     <Content Include="Views\TicketTypes\Edit.cshtml" />
     <Content Include="Views\TicketTypes\Index.cshtml" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
