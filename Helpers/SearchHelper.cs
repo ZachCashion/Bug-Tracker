@@ -10,23 +10,23 @@ namespace Bug_Tracker.Helpers
     public class SearchHelper
     {
         private static ApplicationDbContext db = new ApplicationDbContext();
-        public static IQueryable<BlogPost> IndexSearch(string searchStr)
+        public static IQueryable<Project> IndexSearch(string searchStr)
         {
-            IQueryable<BlogPost> result = null;
+            IQueryable<Project> result = null;
             if (searchStr != null)
             {
-                result = db.BlogPost.AsQueryable();
-                result = result.Where(p => p.Title.Contains(searchStr) ||
-                p.BlogPostBody.Contains(searchStr) ||
-                p.Comments.Any(c => c.CommentBody.Contains(searchStr) ||
-                c.Author.FirstName.Contains(searchStr) ||
-                c.Author.LastName.Contains(searchStr) ||
-                c.Author.DisplayName.Contains(searchStr) ||
-                c.Author.Email.Contains(searchStr)));
+                result = db.Projects.AsQueryable();
+                result = result.Where(p => p.Name.Contains(searchStr) ||
+                p.Description.Contains(searchStr) ||
+                p.Tickets.Any(c => c.Discription.Contains(searchStr) ||
+                c.Submiter.FirstName.Contains(searchStr) ||
+                c.Submiter.LastName.Contains(searchStr) ||
+                c.Submiter.DisplayName.Contains(searchStr) ||
+                c.Submiter.Email.Contains(searchStr)));
             }
             else
             {
-                result = db.BlogPost.AsQueryable();
+                result = db.Projects.AsQueryable();
             }
             return result.OrderByDescending(p => p.Created);
         }

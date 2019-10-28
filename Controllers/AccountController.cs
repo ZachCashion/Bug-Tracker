@@ -429,6 +429,13 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        
+        public ActionResult CustomLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
@@ -503,7 +510,7 @@ namespace Bug_Tracker.Controllers
             public string LoginProvider { get; set; }
             public string RedirectUri { get; set; }
             public string UserId { get; set; }
-
+            
             public override void ExecuteResult(ControllerContext context)
             {
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
