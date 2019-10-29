@@ -75,5 +75,7 @@ namespace Bug_Tracker.Models
         public System.Data.Entity.DbSet<Bug_Tracker.Models.TicketHistory> TicketHistories { get; set; }
 
         public System.Data.Entity.DbSet<Bug_Tracker.Models.TicketNotification> TicketNotifications { get; set; }
+
+       
     }
 }

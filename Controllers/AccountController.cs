@@ -429,12 +429,14 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+        // GET: /Account/CustomLogOff
         public ActionResult CustomLogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
+
+       
 
         //
         // GET: /Account/ExternalLoginFailure
