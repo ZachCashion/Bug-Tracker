@@ -83,6 +83,7 @@ namespace Bug_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.Updated = DateTime.Now;
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

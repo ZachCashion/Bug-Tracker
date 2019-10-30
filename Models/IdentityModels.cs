@@ -18,7 +18,6 @@ namespace Bug_Tracker.Models
         public string LastName { get; set; }
 
         [Display(Name ="Display Name")]
-        public string DisplayName { get; set; }
 
         public virtual ICollection<TicketComment> TicketComments { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
