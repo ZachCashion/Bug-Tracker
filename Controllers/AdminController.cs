@@ -13,7 +13,7 @@ namespace Bug_Tracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
 
-        // GET: Admin
+        // GET: ManageRoles
         public ActionResult ManageRoles()
         {
             ViewBag.UserIds = new MultiSelectList(db.Users,"Id","Email");
@@ -33,7 +33,7 @@ namespace Bug_Tracker.Controllers
         }
 
 
-        //Post: Admin
+        //Post: ManageRoles
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ManageRoles(List<string> userIds, string role) 
@@ -60,6 +60,22 @@ namespace Bug_Tracker.Controllers
             }
 
             return RedirectToAction("ManageRoles", "Admin");
+        }
+
+        // GET: ManageProjects
+        public ActionResult ManageProjects()
+        {
+            ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
+            ViewBag.Projects = new MultiSelectList(db.Projects,"Name","Name");
+            return View();
+        }
+
+        // POST: MangeProjects
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageProjects(List<string> userIds, string p)
+        {
+            return RedirectToAction("ManageProjects", "Admin");
         }
     }
 }

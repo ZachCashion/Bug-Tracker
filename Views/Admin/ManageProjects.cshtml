@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "ManageProjects";
+}
+
+<h2>ManageProjects</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ListBox("UserIds", null, new { @class = "" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ListBox("Projects", null, new { @class = "" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("User Name")
+                </th>
+                <th>
+                    @Html.DisplayName("Project")
+                </th>
+
+            </tr>
+
+           
+
+        </table>
+
+    </div>
+</div>
