@@ -3,6 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bug_Tracker.Models
 {
+    public class ManageRolesViewModel
+    {
+        public string UserName { get; set; }
+        public string RoleName { get; set; }
+    }
+
+
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

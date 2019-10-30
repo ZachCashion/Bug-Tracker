@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,9 +51,16 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
+
+            </div>
+            <div class="nav-item active">
+                <a class="nav-link" href="@Url.Action("ManageRoles", "Admin")">
+                    <i></i>
+                    <span>Manage Roles</span>
+                </a>
             </div>
 
-            
+
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -159,13 +167,13 @@
                             </div>
                         </li>
 
-                   
+
                         <li class="topbar-divider d-none d-sm-block"></li>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Display Name</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@Html.Raw(User.Identity.GetUserName())</span>
                                 <img class="img-profile rounded-circle" src="~/Images/avatarPlaceholder.png" />
                             </a>
                             <!-- Dropdown - User Information -->
@@ -174,7 +182,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -201,7 +209,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Zach Cashion 2019</span>
+                        <span>Copyright &copy; Zach Cashion @DateTime.Now.Year</span>
                     </div>
                 </div>
             </footer>
@@ -230,7 +238,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class = "btn btn-primary" href="@Url.Action("CustomLogOff", "Account")">Logout</a>
+                    <a class="btn btn-primary" href="@Url.Action("CustomLogOff", "Account")">Logout</a>
                 </div>
             </div>
         </div>
