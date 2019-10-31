@@ -1,0 +1,15 @@
+﻿@model Bug_Tracker.Models.ApplicationUser
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<h2>UserProfile</h2>
+@Html.DisplayFor(Model => Model.FirstName)
+@Html.DisplayFor(Model => Model.LastName)
+@Html.DisplayFor(Model => Model.DisplayName)
+@Html.DisplayFor(Model => Model.UserName)
+@Html.DisplayFor(Model => Model.Email)
+
+
+<button class="btn btn-primary">Edit Profile</button>
+

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Bug_Tracker.Models;
 using Bug_Tracker.Helpers;
+using System.Net;
 
 namespace Bug_Tracker.Controllers
 {
@@ -52,6 +53,51 @@ namespace Bug_Tracker.Controllers
                 _userManager = value;
             }
         }
+
+        //
+        // GET: /Account/UserProfile
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public ActionResult UserProfile(String id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+
+        // GET: /Acount/EditProfile
+        public ActionResult EditProfile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(user);
+        }
+
+        // POST: /Account/EditProfile
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile()
+        {
+            return RedirectToAction("ManageProjects", "Admin");
+        }
+
+
 
         //
         // GET: /Account/Login

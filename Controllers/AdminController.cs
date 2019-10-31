@@ -62,6 +62,7 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("ManageRoles", "Admin");
         }
 
+
         // GET: ManageProjects
         public ActionResult ManageProjects()
         {

@@ -239,6 +239,7 @@
     <Content Include="site.webmanifest" />
     <Content Include="Views\Admin\ManageRoles.cshtml" />
     <Content Include="Views\Admin\ManageProjects.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
