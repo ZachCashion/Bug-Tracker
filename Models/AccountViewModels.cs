@@ -9,6 +9,12 @@ namespace Bug_Tracker.Models
         public string RoleName { get; set; }
     }
 
+    public class ManageProjectsViewModel
+    {
+        public string UserName { get; set; }
+        public string ProjectName { get; set; }
+    }
+
 
 
     public class ExternalLoginConfirmationViewModel

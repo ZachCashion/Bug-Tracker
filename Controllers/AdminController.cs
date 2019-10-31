@@ -66,7 +66,7 @@ namespace Bug_Tracker.Controllers
         public ActionResult ManageProjects()
         {
             ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
-            ViewBag.Projects = new MultiSelectList(db.Projects,"Name","Name");
+            ViewBag.Projects = new MultiSelectList(db.Projects,"Id","Name");
             return View();
         }
 

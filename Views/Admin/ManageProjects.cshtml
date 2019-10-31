@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Bug_Tracker.Models.ManageProjectsViewModel>
 @{
     ViewBag.Title = "ManageProjects";
 }
@@ -40,8 +40,18 @@
                 </th>
 
             </tr>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => user.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => user.ProjectName)
+                    </td>
+                </tr>
+            }
 
-           
 
         </table>
 

@@ -185,6 +185,7 @@
     </Compile>
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\ImageUploadValidator.cs" />
+    <Compile Include="Helpers\ProjectsHelper.cs" />
     <Compile Include="Helpers\SearchHelper.cs" />
     <Compile Include="Helpers\Slug.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
@@ -321,6 +322,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ProjectsHelper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
