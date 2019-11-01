@@ -5,19 +5,11 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Project</h4>
-    <hr />
+<div class="card-header py-3">
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+</div>
+<div class="card-body">
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Description)
@@ -37,8 +29,107 @@
 
 
     </dl>
+</div>   
+
+<div>
+    
+    <hr />
+    
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold">Tickets</h6>
+        <a class="" href="@Url.Action("")">Create Ticket</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Title")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Discription")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Priority")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Status")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Type")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Project")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Submiter")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Assigned To")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Created")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Updated")
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var Ticket in Model.Tickets)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Discription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.TicketPriority.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.TicketStatus.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.TicketType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Project.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Submiter.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Developer.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Ticket.Updated)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = Ticket.Id }) |
+                            <a href="@Url.Action("Details","Tickets", new { id = Ticket.Id })">Detials</a> |
+                            @Html.ActionLink("Delete", "Delete", new { id = Ticket.Id }) 
+                            
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+

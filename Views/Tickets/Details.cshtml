@@ -1,98 +1,228 @@
 ﻿@model Bug_Tracker.Models.Ticket
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Ticket";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Title)</h2>
 
 <div>
-    <h4>Ticket</h4>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Developer.FirstName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Developer.FirstName)
-        </dd>
+    <div class="container">
+        <div class="row">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Project")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.Name)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Submiter.FirstName)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Submiter")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Submiter.FirstName)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Submiter.FirstName)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketPriority.Name)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Priority")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketPriority.Name)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.TicketPriority.Name)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketStatus.Name)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Status")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketStatus.Name)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.TicketStatus.Name)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Type")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketType.Name)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.TicketType.Name)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Title")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Discription)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Discription")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Discription)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Discription)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Assigned To")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Developer.DisplayName)
+                    </dd>
+                </dl>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Created")
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Created)
+                    </dd>
+                </dl>
+            </div>
 
-    </dl>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Updated")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Updated)
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<!-- Comments -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div id="addComment">
+                    @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("TicketId", Model.Id)
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group floating-label-form-group controls">
+                                    @Html.TextArea("CommentBody", new { rows = 5, cols = 50, placeholder = "Add Comment" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" style="margin:10px;" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+                <hr />
+            }
+
+
+
+            @foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
+            {
+                <div class="container">
+                    <div class="row">
+                        <div style="text-align:center;" class="col-2 mx-auto">
+                            <img src="~/Images/avatarPlaceholder.png" class="" style="width:50px;">
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div style="background-color:rgb(242, 242, 242); padding:10px;">
+                                <h6>Display Name</h6>
+
+                                <div class="media">
+                                    <div class="media-body">
+                                        @comment.CommentBody
+                                    </div>
+                                </div>
+
+                                <div>@comment.Created.ToString()</div>
+                            </div>
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                            {
+                                <div class="row">
+                                    <a href=@Url.Action("Edit", "Comments",new { id=comment.Id })>
+                                        <div class=" btn btn-warning" style="width:100px; margin:15px;">
+                                            Edit
+                                        </div>
+                                    </a>
+
+                                    <a href=@Url.Action("Delete", "Comments",new { id=comment.Id })>
+                                        <div type="submit" class=" btn btn-danger" style="width:100px; margin:15px;">
+                                            Delete
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container mt-3">
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
