@@ -12,7 +12,7 @@ namespace Bug_Tracker.Models
         public int TicketTypeId { get; set; }
         public int TicketPriorityId { get; set; }
         public int TicketStatusId { get; set; }
-        public string SubmiterId { get; set; }
+        public string SubmiterID { get; set; }
         public string DeveloperID { get; set; }
 
 

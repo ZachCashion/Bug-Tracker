@@ -111,6 +111,30 @@ namespace Bug_Tracker.Migrations
 
             var subId = userManager.FindByEmail("DemoSubmitter@Mailinator.com").Id;
             userManager.AddToRole(subId, "Submitter");
+
+            //Ticket Type
+            context.TicketTypes.AddOrUpdate(
+                t => t.Name,
+                    new TicketType { Name = "Bug", Description =""},
+                    new TicketType { Name = "Feature Request", Description = "" }
+                );
+
+            //Ticket Priority
+            context.TicketPriorities.AddOrUpdate(
+                t => t.Name,
+                    new TicketPriority { Name = "High", Description = "" },
+                    new TicketPriority { Name = "Mid", Description = "" },
+                    new TicketPriority { Name = "Low", Description = "" }
+                );
+
+            //Ticket Status
+            context.TicketStatus.AddOrUpdate(
+                t => t.Name,
+                    new TicketStatus { Name = "Open", Description = "" },
+                    new TicketStatus { Name = "Assigned", Description = "" },
+                    new TicketStatus { Name = "Resolved", Description = "" },
+                    new TicketStatus { Name = "Archived", Description = "" }
+                );
         }
     }
 }

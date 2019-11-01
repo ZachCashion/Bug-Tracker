@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Bug_Tracker.Models;
 using Bug_Tracker.Helpers;
 using System.Net;
+using System.Data.Entity;
 
 namespace Bug_Tracker.Controllers
 {
@@ -73,7 +74,7 @@ namespace Bug_Tracker.Controllers
 
 
         // GET: /Acount/EditProfile
-        public ActionResult EditProfile(int? id)
+        public ActionResult EditUserProfile(String id)
         {
             if (id == null)
             {
@@ -90,11 +91,16 @@ namespace Bug_Tracker.Controllers
 
         // POST: /Account/EditProfile
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile()
+        public ActionResult EditUserProfile([Bind(Include = "Id,FirstName,LastName,DisplayName,Email,UserName,PasswordHash,SecurityStamp")] ApplicationUser user)
         {
-            return RedirectToAction("ManageProjects", "Admin");
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("UserProfile", "Account", new { id = User.Identity.GetUserId() });
+            }
+            return View (user);
         }
 
 
