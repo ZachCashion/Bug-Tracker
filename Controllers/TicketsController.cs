@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -54,10 +55,12 @@ namespace Bug_Tracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,SubmiterId,DeveloperID,Title,Discription,Created,Updated")] Ticket ticket)
+        public ActionResult Create([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,SubmiterId,DeveloperID,Title,Discription,Created,Updated")] Ticket ticket, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                var fileName = DateTime.Now.Ticks + Path.GetFileName(file.FileName);
+                file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
                 ticket.Created = DateTime.Now;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();

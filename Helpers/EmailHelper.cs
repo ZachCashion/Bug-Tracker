@@ -39,7 +39,7 @@ namespace Bug_Tracker.Helpers
         {
             try 
             {
-                var senderEmail = $"Blog Admin<{ConfiguredEmail}>";
+                var senderEmail = $"Admin<{ConfiguredEmail}>";
                 var mailMsg = new MailMessage(senderEmail, model.Email)
                 {
                     Subject = "Confirm your account",
@@ -62,7 +62,7 @@ namespace Bug_Tracker.Helpers
         {
             try 
             {
-                var senderEmail = $"Blog Admin<{ConfiguredEmail}>";
+                var senderEmail = $"Admin<{ConfiguredEmail}>";
                 var mailMsg = new MailMessage(senderEmail, model.Email)
                 {
                     Subject = "Reset Password",
