@@ -9,7 +9,7 @@
 <h2>Create Ticket</h2>
 
 
-@using (Html.BeginForm( new { enctype = "Multipart/form-data" }))
+@using (Html.BeginForm("Create", "Tickets", FormMethod.Post, new { enctype = "Multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -70,7 +70,7 @@
          <div class="form-group">
             @Html.Label("File Upload", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Editor("Image", new { htmlAttributes = new {  type= "file", id="fileUpload"} })
+                @Html.Editor("file", new { htmlAttributes = new { type= "file", id="fileUpload"} })
                 @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
             </div>
         </div> 

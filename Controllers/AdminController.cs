@@ -12,6 +12,7 @@ namespace Bug_Tracker.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
+        private ProjectsHelper projectsHelper = new ProjectsHelper();
 
         // GET: ManageRoles
         public ActionResult ManageRoles()
@@ -66,15 +67,40 @@ namespace Bug_Tracker.Controllers
         // GET: ManageProjects
         public ActionResult ManageProjects()
         {
-            ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
             ViewBag.Projects = new MultiSelectList(db.Projects,"Id","Name");
-            return View();
+            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer"),"Id","Email");
+            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Submitter"), "Id", "Email");
+
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Manager"), "Id", "Email");
+            }
+
+            var myData = new List<ManageProjectsViewModel>();
+            ManageProjectsViewModel userVm = null;
+            foreach(var user in db.Users.ToList())
+            {
+                userVm = new ManageProjectsViewModel
+                {
+                    UserName = $"{user.LastName},{user.FirstName}",
+                    ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
+                };
+
+                if(userVm.ProjectNames.Count() == 0)
+                {
+                    userVm.ProjectNames.Add("N/A");
+                }
+
+                myData.Add(userVm);
+            }
+
+            return View(myData);
         }
 
         // POST: MangeProjects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageProjects(List<string> userIds, string p)
+        public ActionResult ManageProjects(List<int> projects, string ManagerId, List<string> developers, List<string> submitters)
         {
             return RedirectToAction("ManageProjects", "Admin");
         }

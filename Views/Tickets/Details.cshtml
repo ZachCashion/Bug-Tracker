@@ -133,7 +133,18 @@
                 </dl>
             </div>
 
-            <div class="col"></div>
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Attachment")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TicketAttachments)
+                    </dd>
+                </dl>
+            </div>
+
             <div class="col"></div>
         </div>
     </div>
