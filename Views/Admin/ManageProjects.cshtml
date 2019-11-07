@@ -5,21 +5,20 @@
 
 <h2>ManageProjects</h2>
 <div class="container">
-    <div class="row">
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-6">
                 @Html.ListBox("Projects", null, new { @class = "form-control" })
-            </div>
 
-            <div class="col-md-2 col-md-offset-1">
                 <button type="submit" class="btn btn-primary">Assign</button>
-            </div>
 
-            <div class="col-md-4">
+            </div>
+ 
+            <div class="col-md-6">
                 @if (User.IsInRole("Admin"))
                 {
                     <div class="row">
@@ -29,7 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            @Html.DropDownList("ManagerId", null, "--Select--", new { @class = "form-control" })
+                            @Html.DropDownList("Manager", null, "--Select--", new { @class = "form-control" })
                         </div>
                     </div>
                     <hr />
@@ -54,48 +53,44 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        @Html.ListBox("Submitter", null, new { @class = "form-control" })
+                        @Html.ListBox("Submitters", null, new { @class = "form-control" })
                     </div>
                 </div>
             </div>
+        </div>
+    }
+    
+       <div class="row">
+           <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("User")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Project")
+                        </th>
 
-        }
+                    </tr>
 
-    </div>
-
-    <div class="row">
-        <table class="table">
-
-        </table>
-    </div>
-
-    <div class="col-md-6">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("User")
-                </th>
-                <th>
-                    @Html.DisplayName("Project")
-                </th>
-
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        @foreach(var name in item.ProjectNames)
-                        {
-                            @name <br />
-                        }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @foreach(var name in item.ProjectNames)
+                                {
+                                    @name <br />
+                                }
                             
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>    
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>    
+       </div>
+
+    
 </div>

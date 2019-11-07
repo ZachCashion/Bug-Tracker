@@ -69,11 +69,11 @@ namespace Bug_Tracker.Controllers
         {
             ViewBag.Projects = new MultiSelectList(db.Projects,"Id","Name");
             ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer"),"Id","Email");
-            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Submitter"), "Id", "Email");
+            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter"), "Id", "Email");
 
             if (User.IsInRole("Admin"))
             {
-                ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Manager"), "Id", "Email");
+                ViewBag.Manager = new SelectList(roleHelper.UsersInRole("Manager"), "Id", "Email");
             }
 
             var myData = new List<ManageProjectsViewModel>();
@@ -100,8 +100,39 @@ namespace Bug_Tracker.Controllers
         // POST: MangeProjects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageProjects(List<int> projects, string ManagerId, List<string> developers, List<string> submitters)
+        public ActionResult ManageProjects(List<int> projects, string Manager, List<string> developers, List<string> submitters)
         {
+            if(projects != null)
+            {
+                foreach(var projectId in projects)
+                {
+                    foreach(var user in projectsHelper.UsersOnProject(projectId).ToList())
+                    {
+                        projectsHelper.RemoveUserFromProject(user.Id, projectId);
+                    }
+
+                    if (!string.IsNullOrEmpty(Manager))
+                    {
+                        projectsHelper.AddUserToProject(Manager, projectId);
+                    }
+
+                    if(developers != null)
+                    {
+                        foreach(var developerId in developers)
+                        {
+                            projectsHelper.AddUserToProject(developerId, projectId);
+                        }
+                    }
+
+                    if(submitters != null)
+                    {
+                        foreach (var submitterId in submitters)
+                        {
+                            projectsHelper.AddUserToProject(submitterId, projectId);
+                        }
+                    }
+                }
+            }
             return RedirectToAction("ManageProjects", "Admin");
         }
     }
