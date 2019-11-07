@@ -210,6 +210,7 @@
     <Content Include="android-chrome-192x192.png" />
     <Content Include="android-chrome-512x512.png" />
     <Content Include="apple-touch-icon.png" />
+    <Content Include="Avatar\avatarPlaceholder.png" />
     <Content Include="Content\all.css" />
     <Content Include="Content\all.min.css" />
     <Content Include="Content\sb-admin-2.css" />
@@ -325,7 +326,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\ProjectsHelper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

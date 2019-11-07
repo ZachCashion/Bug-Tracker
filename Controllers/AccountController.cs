@@ -12,6 +12,7 @@ using Bug_Tracker.Models;
 using Bug_Tracker.Helpers;
 using System.Net;
 using System.Data.Entity;
+using System.IO;
 
 namespace Bug_Tracker.Controllers
 {
@@ -200,11 +201,34 @@ namespace Bug_Tracker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase avatar)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, DisplayName = model.FirstName + " " + model.LastName };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DisplayName = model.FirstName + " " + model.LastName,
+                    AvatarPath = "/Avatar/avatarPlaceholder.png"
+                };
+
+                if(avatar != null)
+                {
+                    if (ImageUploadValidator.IsWebFriendlyImage(avatar))
+                    {
+                        var fileName = Path.GetFileName(avatar.FileName);
+                        var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                        justFileName = StringUtilities.URLFriendly(justFileName);
+                        fileName = $"{justFileName}_{DateTime.Now.Ticks}{Path.GetExtension(fileName)}";
+
+                        avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
+                        user.AvatarPath = "/Avatar/" + fileName;
+                    }
+                }
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

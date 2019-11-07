@@ -20,6 +20,8 @@ namespace Bug_Tracker.Models
         [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
 
+        public string AvatarPath { get; set; }
+
         public virtual ICollection<TicketComment> TicketComments { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<TicketAttachment> TicketAttachments { get; set; }
