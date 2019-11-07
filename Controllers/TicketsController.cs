@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Bug_Tracker.Helpers;
 using Bug_Tracker.Models;
 using Microsoft.AspNet.Identity;
 
@@ -15,6 +17,46 @@ namespace Bug_Tracker.Controllers
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: AssignTicket
+        public ActionResult AssignTicket(int? id)
+        {
+            UserRolesHelper helper = new UserRolesHelper();
+            var ticket = db.Tickets.Find(id);
+            var users = helper.UsersInRole("DEVELOPER").ToList();
+            ViewBag.DevelperID = new SelectList(users, "Id", "FullName",
+            ticket.DeveloperID);
+            return View(ticket);
+        }
+
+        // Post: AssignTicket
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AssignTicket(Ticket model)
+        {
+            var ticket = db.Tickets.Find(model.Id);
+            ticket.DeveloperID = model.DeveloperID;
+            db.SaveChanges();
+            var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id },
+            protocol: Request.Url.Scheme);
+            try
+            {
+                EmailService ems = new EmailService();
+                IdentityMessage message = new IdentityMessage();
+                ApplicationUser user = new db.Users.Find(model.DeveloperID);
+                message.Body = "You have been assigned a new Ticket." + Environment.NewLine +
+                "Please click the following link to view the details " +
+                "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
+                message.Destination = user.Email;
+                message.Subject = "Invite to Household";
+                await ems.SendAsync(message);
+            }
+            catch (Exception ex)
+            {
+                await Task.FromResult(0);
+            }
+            return RedirectToAction("Index");
+        }
 
         // GET: Tickets
         public ActionResult Index()
@@ -59,9 +101,15 @@ namespace Bug_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                var fileName = DateTime.Now.Ticks + Path.GetFileName(file.FileName);
-                file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                ticketAttachment.FilePath = "/Uploads/" + fileName;
+                if( file != null)
+                {
+                    var fileName = DateTime.Now.Ticks + Path.GetFileName(file.FileName);
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    ticketAttachment.FilePath = "/Uploads/" + fileName;
+                }
+                
+
+                //ticket.TicketStatusId = ;
                 ticket.SubmiterID = User.Identity.GetUserId();
                 ticket.Created = DateTime.Now;
                 db.Tickets.Add(ticket);
