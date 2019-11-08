@@ -51,33 +51,63 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
+            </div>
 
-            </div>
-            <div class="nav-item active">
-                <a class="nav-link" href="@Url.Action("ManageRoles", "Admin")">
-                    <i></i>
-                    <span>Manage Roles</span>
-                </a>
-            </div>
-            <div class="nav-item active">
-                <a class="nav-link" href="@Url.Action("ManageProjects", "Admin")">
-                    <i></i>
-                    <span>Manage Projects</span>
-                </a>
-            </div>
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                
+
+                <div class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Admin</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Admin Functions</h6>
+                            <div class="nav-item active">
+                                <a class="collapse-item" href="@Url.Action("ManageRoles", "Admin")">
+                                    <i></i>
+                                    <span>Assign Roles</span>
+                                </a>
+                            </div>
+                            <div class="nav-item active">
+                                <a class="collapse-item" href="@Url.Action("ManageProjects", "Admin")">
+                                    <i></i>
+                                    <span>Manage Projects</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            }
+
             <div class="nav-item active">
                 <a class="nav-link" href="@Url.Action("Index", "Projects")">
-                    <i></i>
+                    <i class="fas fa-folder"></i>
                     <span>Projects</span>
                 </a>
             </div>
+
+            
+
             <div class="nav-item active">
                 <a class="nav-link" href="@Url.Action("Index", "Tickets")">
-                    <i></i>
+                    <i class="fas fa-ticket-alt"></i>
                     <span>Tickets</span>
                 </a>
             </div>
 
+            
+
+            <div class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "TicketHistories")">
+                    <i class="fas fa-history"></i>
+                    <span>Ticket Histories</span>
+                </a>
+            </div>
 
 
             <!-- Sidebar Toggler (Sidebar) -->

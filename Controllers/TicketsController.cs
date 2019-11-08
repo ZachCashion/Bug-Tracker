@@ -17,6 +17,8 @@ namespace Bug_Tracker.Controllers
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private TicketHelper ticketHelper = new TicketHelper();
+        private UserRolesHelper rolesHelper = new UserRolesHelper();
 
         // GET: AssignTicket
         public ActionResult AssignTicket(int? id)
@@ -37,32 +39,23 @@ namespace Bug_Tracker.Controllers
             var ticket = db.Tickets.Find(model.Id);
             ticket.DeveloperID = model.DeveloperID;
             db.SaveChanges();
-            var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id },
-            protocol: Request.Url.Scheme);
-            try
-            {
-                EmailService ems = new EmailService();
-                IdentityMessage message = new IdentityMessage();
-                ApplicationUser user = new db.Users.Find(model.DeveloperID);
-                message.Body = "You have been assigned a new Ticket." + Environment.NewLine +
-                "Please click the following link to view the details " +
-                "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
-                message.Destination = user.Email;
-                message.Subject = "Invite to Household";
-                await ems.SendAsync(message);
-            }
-            catch (Exception ex)
-            {
-                await Task.FromResult(0);
-            }
+            var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);
+          
             return RedirectToAction("Index");
         }
 
         // GET: Tickets
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.Developer).Include(t => t.Project).Include(t => t.Submiter).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
-            return View(tickets.ToList());
+            //var tickets = db.Tickets.Include(t => t.Developer)
+            //                        .Include(t => t.Project)
+            //                        .Include(t => t.Submiter)
+            //                        .Include(t => t.TicketPriority)
+            //                        .Include(t => t.TicketStatus)
+            //                        .Include(t => t.TicketType);
+
+            //What role do I occupy
+            return View(ticketHelper.ListMyTickets());
         }
 
         // GET: Tickets/Details/5
@@ -107,9 +100,9 @@ namespace Bug_Tracker.Controllers
                     file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
                     ticketAttachment.FilePath = "/Uploads/" + fileName;
                 }
-                
 
-                //ticket.TicketStatusId = ;
+
+                ticket.TicketStatusId = ticketHelper.SetDefaultTicketStatus();
                 ticket.SubmiterID = User.Identity.GetUserId();
                 ticket.Created = DateTime.Now;
                 db.Tickets.Add(ticket);
@@ -156,8 +149,14 @@ namespace Bug_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+
+
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
+
+
+
+
                 return RedirectToAction("Index");
             }
             ViewBag.DeveloperID = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperID);
