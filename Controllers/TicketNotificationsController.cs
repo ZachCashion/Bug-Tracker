@@ -17,7 +17,7 @@ namespace Bug_Tracker.Controllers
         // GET: TicketNotifications
         public ActionResult Index()
         {
-            var ticketNotifications = db.TicketNotifications.Include(t => t.Ticket).Include(t => t.User);
+            var ticketNotifications = db.TicketNotifications.Include(t => t.Ticket).Include(t => t.Recipient);
             return View(ticketNotifications.ToList());
         }
 
@@ -53,13 +53,14 @@ namespace Bug_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                ticketNotification.Created = DateTime.Now;
                 db.TicketNotifications.Add(ticketNotification);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmiterId", ticketNotification.TicketId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketNotification.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketNotification.SenderId);
             return View(ticketNotification);
         }
 
@@ -76,7 +77,7 @@ namespace Bug_Tracker.Controllers
                 return HttpNotFound();
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmiterId", ticketNotification.TicketId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketNotification.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketNotification.SenderId);
             return View(ticketNotification);
         }
 
@@ -94,7 +95,7 @@ namespace Bug_Tracker.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmiterId", ticketNotification.TicketId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketNotification.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketNotification.SenderId);
             return View(ticketNotification);
         }
 
