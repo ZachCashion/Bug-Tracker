@@ -132,9 +132,9 @@ namespace Bug_Tracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DeveloperID = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperID);
+            ViewBag.DeveloperID = new SelectList(db.Users, "Id", "DisplayName", ticket.DeveloperID);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
-            ViewBag.SubmiterId = new SelectList(db.Users, "Id", "FirstName", ticket.Submiter);
+            ViewBag.SubmiterId = new SelectList(db.Users, "Id", "DisplayName", ticket.Submiter);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
@@ -146,12 +146,23 @@ namespace Bug_Tracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,SubmiterId,DeveloperID,Title,Discription,Created")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,SubmiterId,DeveloperID,Title,Discription,Created")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
 
+                if (ticket.DeveloperID == null)
+                {
+                    ticketHelper.UnassignTicket(ticket.Id);
+                    ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Open").Id;
+                }
+                else
+                {
+                    ticketHelper.AssignTicket(ticket.DeveloperID, ticket.Id);
+                    ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Assigned").Id;
+                }
+                 
                 ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();

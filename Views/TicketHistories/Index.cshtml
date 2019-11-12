@@ -1,63 +1,66 @@
 ﻿@model IEnumerable<Bug_Tracker.Models.TicketHistory>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ticket History";
 }
 
-<h2>Index</h2>
 
-<p>
-    
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.SubmiterID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Propery)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OldValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NewValue)
-        </th>
-        <th></th>
-    </tr>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold">Tickets History</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Ticket Title")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Change Made By")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Updated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Propery)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OldValue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NewValue)
+                        </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.SubmiterID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Propery)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OldValue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NewValue)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Updated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Propery)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OldValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NewValue)
+                        </td>
 
-</table>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+

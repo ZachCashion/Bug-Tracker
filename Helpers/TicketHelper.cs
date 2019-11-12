@@ -18,6 +18,26 @@ namespace Bug_Tracker.Helpers
             return db.TicketStatus.FirstOrDefault(ts => ts.Name == "Open").Id;
         }
 
+        
+        public void AssignTicket(string userId, int ticketId)
+        {
+            Ticket ticket = db.Tickets.Find(ticketId);
+            var newUser = db.Users.Find(userId);
+            ticket.DeveloperID = newUser.Id;
+
+            db.SaveChanges();
+        }
+
+        
+        public void UnassignTicket(int ticketId)
+        {
+            Ticket ticket = db.Tickets.Find(ticketId);
+            ticket.DeveloperID = null;
+            
+            db.SaveChanges(); 
+        }
+
+
         public List<Ticket> ListMyTickets()
         {
             var myTickets = new List<Ticket>();
