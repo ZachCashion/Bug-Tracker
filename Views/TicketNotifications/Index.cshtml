@@ -4,54 +4,72 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Notifications</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.SubmiterId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotificationBody)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsRead)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.SubmiterId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotificationBody)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsRead)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold">Tickets</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Ticket Title")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Sender")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Recipient")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Created)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NotificationBody)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsRead)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sender.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Recipient.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NotificationBody)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsRead)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
 
-</table>

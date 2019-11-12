@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using Bug_Tracker.Helpers
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +56,7 @@
 
             @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
             {
-                
+
 
                 <div class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -81,7 +82,7 @@
                     </div>
                 </div>
 
-                
+
             }
 
             <div class="nav-item active">
@@ -91,7 +92,7 @@
                 </a>
             </div>
 
-            
+
 
             <div class="nav-item active">
                 <a class="nav-link" href="@Url.Action("Index", "Tickets")">
@@ -100,7 +101,7 @@
                 </a>
             </div>
 
-            
+
 
             <div class="nav-item active">
                 <a class="nav-link" href="@Url.Action("Index", "TicketHistories")">
@@ -109,6 +110,12 @@
                 </a>
             </div>
 
+            <div class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "TicketNotifications")">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+            </div>
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -171,17 +178,29 @@
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter">@NotificationHelper.GetUnReadNotifications().Count()</span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Notifications
                                 </h6>
+                                @foreach (var unreadNotification in NotificationHelper.GetUnReadNotifications())
+                                {
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle" src="@unreadNotification.Sender.AvatarPath" alt="">
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">@unreadNotification.Sender.DisplayName.ToString() · @unreadNotification.Created.ToString("MMM dd,yyyy")</div>
+                                            <span class="font-weight-bold">@unreadNotification.NotificationBody</span>
+                                        </div>
+                                    </a>
+                                }
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i> 
+                                            <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
                                     <div>
@@ -211,7 +230,7 @@
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="@Url.Action("Index", "TicketNotifications")">Show All</a>
                             </div>
                         </li>
 
