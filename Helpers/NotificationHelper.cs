@@ -23,14 +23,24 @@ namespace Bug_Tracker.Helpers
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
                 RecipientId = newTicket.DeveloperID,
                 Created = DateTime.Now,
-                NotificationBody = $"You have been assigned to Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title} "
+                NotificationBody = $"You have been assigned to Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title}."
             };
             db.TicketNotifications.Add(notification);
             db.SaveChanges();
         }
         public void AddUnAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
-
+            var notification = new TicketNotification
+            {
+                TicketId = newTicket.Id,
+                IsRead = false,
+                SenderId = HttpContext.Current.User.Identity.GetUserId(),
+                RecipientId = newTicket.DeveloperID,
+                Created = DateTime.Now,
+                NotificationBody = $"You have been unassigned from Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title}."
+            };
+            db.TicketNotifications.Add(notification);
+            db.SaveChanges();
         }
         public static List<TicketNotification> GetUnReadNotifications()
         {
