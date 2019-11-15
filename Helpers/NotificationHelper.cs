@@ -24,6 +24,8 @@ namespace Bug_Tracker.Helpers
                 RecipientId = newTicket.DeveloperID,
                 Created = DateTime.Now,
                 NotificationBody = $"You have been assigned to Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title}."
+
+
             };
 
             db.TicketNotifications.Add(notification);

@@ -157,13 +157,11 @@ namespace Bug_Tracker.Controllers
                 if (ticket.DeveloperID == null)
                 {
                     ticketHelper.UnassignTicket(ticket.Id);
-                    notificationHelper.AddUnAssignmentNotification(oldTicket, ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Open").Id;
                 }
                 else
                 {
                     ticketHelper.AssignTicket(ticket.DeveloperID, ticket.Id);
-                    notificationHelper.AddAssignmentNotification(ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Assigned").Id;
                 }
 
@@ -188,6 +186,15 @@ namespace Bug_Tracker.Controllers
                 db.SaveChanges();
 
                 var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+                if (newTicket.DeveloperID == null)
+                {
+                    notificationHelper.AddUnAssignmentNotification(oldTicket, newTicket);
+                }
+                else
+                {
+                    notificationHelper.AddAssignmentNotification(newTicket);
+                }
 
                 historyHelper.RecordHistoricalChanges(oldTicket, newTicket);
 
