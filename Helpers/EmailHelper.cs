@@ -18,7 +18,7 @@ namespace Bug_Tracker.Helpers
         {
             try 
             {
-                var senderEmail = $"{email.FromEmail}<{ConfiguredEmail}>";
+                var senderEmail = $"{email.FromEmail}<{ConfiguredEmail}>";  
                 var mailMsg = new MailMessage(senderEmail, ConfiguredEmail)
                 {
                     Subject = email.Subject,

@@ -35,7 +35,7 @@ namespace Bug_Tracker.Helpers
                 TicketId = newTicket.Id,
                 IsRead = false,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
-                RecipientId = newTicket.DeveloperID,
+                RecipientId = oldTicket.DeveloperID,
                 Created = DateTime.Now,
                 NotificationBody = $"You have been unassigned from Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title}."
             };

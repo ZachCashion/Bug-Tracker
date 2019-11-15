@@ -20,6 +20,7 @@ namespace Bug_Tracker.Controllers
         private TicketHelper ticketHelper = new TicketHelper();
         private UserRolesHelper rolesHelper = new UserRolesHelper();
         private TicketHistoryHelper historyHelper = new TicketHistoryHelper();
+        private NotificationHelper notificationHelper = new NotificationHelper();
 
         // GET: AssignTicket
         public ActionResult AssignTicket(int? id)
@@ -155,11 +156,13 @@ namespace Bug_Tracker.Controllers
                 if (ticket.DeveloperID == null)
                 {
                     ticketHelper.UnassignTicket(ticket.Id);
+                    notificationHelper.AddUnAssignmentNotification(oldTicket, ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Open").Id;
                 }
                 else
                 {
                     ticketHelper.AssignTicket(ticket.DeveloperID, ticket.Id);
+                    notificationHelper.AddAssignmentNotification(ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Assigned").Id;
                 }
                  
