@@ -25,6 +25,7 @@ namespace Bug_Tracker.Helpers
                 Created = DateTime.Now,
                 NotificationBody = $"You have been assigned to Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title}."
             };
+
             db.TicketNotifications.Add(notification);
             db.SaveChanges();
         }
@@ -39,6 +40,7 @@ namespace Bug_Tracker.Helpers
                 Created = DateTime.Now,
                 NotificationBody = $"You have been unassigned from Ticket Id {newTicket.Id} on Project {newTicket.Project.Name}. The Ticket Title is {newTicket.Title}."
             };
+
             db.TicketNotifications.Add(notification);
             db.SaveChanges();
         }

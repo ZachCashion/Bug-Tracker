@@ -157,13 +157,13 @@ namespace Bug_Tracker.Controllers
                 if (ticket.DeveloperID == null)
                 {
                     ticketHelper.UnassignTicket(ticket.Id);
-                    //notificationHelper.AddUnAssignmentNotification(oldTicket, ticket);
+                    notificationHelper.AddUnAssignmentNotification(oldTicket, ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Open").Id;
                 }
                 else
                 {
                     ticketHelper.AssignTicket(ticket.DeveloperID, ticket.Id);
-                    //notificationHelper.AddAssignmentNotification(ticket);
+                    notificationHelper.AddAssignmentNotification(ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Assigned").Id;
                 }
 
