@@ -59,7 +59,8 @@ namespace Bug_Tracker.Migrations
                     Email = "DemoAdmin@Mailinator.com",
                     FirstName = "Demo",
                     LastName = "Admin",
-                    DisplayName = "DemoAdmin"
+                    DisplayName = "DemoAdmin",
+                    AvatarPath = "/Avatar/avatarPlaceholder.png"
                 },demoPassword);
             }
 
@@ -71,7 +72,8 @@ namespace Bug_Tracker.Migrations
                     Email = "DemoManager@Mailinator.com",
                     FirstName = "Demo",
                     LastName = "Manager",
-                    DisplayName = "DemoManager"
+                    DisplayName = "DemoManager",
+                    AvatarPath = "/Avatar/avatarPlaceholder.png"
                 }, demoPassword);
             }
 
@@ -83,7 +85,8 @@ namespace Bug_Tracker.Migrations
                     Email = "DemoDeveloper@Mailinator.com",
                     FirstName = "Demo",
                     LastName = "Developer",
-                    DisplayName = "DemoDeveloper"
+                    DisplayName = "DemoDeveloper",
+                    AvatarPath = "/Avatar/avatarPlaceholder.png"
                 }, demoPassword);
             }
 
@@ -95,7 +98,8 @@ namespace Bug_Tracker.Migrations
                     Email = "DemoSubmitter@Mailinator.com",
                     FirstName = "Demo",
                     LastName = "Submitter",
-                    DisplayName = "DemoSubmitter"
+                    DisplayName = "DemoSubmitter",
+                    AvatarPath = "/Avatar/avatarPlaceholder.png"
                 }, demoPassword);
             }
 

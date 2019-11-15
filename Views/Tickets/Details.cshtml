@@ -32,7 +32,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Submiter.FirstName)
+                        @Html.DisplayFor(model => model.Submiter.DisplayName)
                     </dd>
                 </dl>
             </div>
@@ -136,12 +136,16 @@
             <div class="col">
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.DisplayName("Attachment")
+                        @Html.DisplayName("Attachments")
                     </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.TicketAttachments)
-                    </dd>
+                    @foreach (var attachment in Model.TicketAttachments.OrderByDescending(c => c.Created))
+                    {
+                        <dd>
+                            @attachment.FilePath
+                        </dd>
+                    }
+                    
                 </dl>
             </div>
 
@@ -149,10 +153,6 @@
         </div>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 
 <!-- Comments -->

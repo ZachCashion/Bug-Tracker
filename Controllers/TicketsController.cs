@@ -171,7 +171,16 @@ namespace Bug_Tracker.Controllers
                 {
                     var fileName = DateTime.Now.Ticks + Path.GetFileName(file.FileName);
                     file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                    ticketAttachment.FilePath = "/Uploads/" + fileName;
+
+                    var attachment = new TicketAttachment
+                    {
+                        TicketID = ticket.Id,
+                        UserId = User.Identity.GetUserId(),
+                        Created = DateTime.Now,
+                        FilePath = "/Uploads/" + fileName
+                    };
+
+                    db.TicketAttachments.Add(attachment);
                 }
 
                 ticket.Updated = DateTime.Now;
