@@ -21,6 +21,7 @@ namespace Bug_Tracker.Controllers
         private UserRolesHelper rolesHelper = new UserRolesHelper();
         private TicketHistoryHelper historyHelper = new TicketHistoryHelper();
         private NotificationHelper notificationHelper = new NotificationHelper();
+        private AttachmentHelper attachmentHelper = new AttachmentHelper();
 
         // GET: AssignTicket
         public ActionResult AssignTicket(int? id)
@@ -147,7 +148,7 @@ namespace Bug_Tracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,SubmiterId,DeveloperID,Title,Discription,Created")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,SubmiterId,DeveloperID,Title,Discription,Created")] Ticket ticket, TicketAttachment ticketAttachment,  HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -156,16 +157,23 @@ namespace Bug_Tracker.Controllers
                 if (ticket.DeveloperID == null)
                 {
                     ticketHelper.UnassignTicket(ticket.Id);
-                    notificationHelper.AddUnAssignmentNotification(oldTicket, ticket);
+                    //notificationHelper.AddUnAssignmentNotification(oldTicket, ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Open").Id;
                 }
                 else
                 {
                     ticketHelper.AssignTicket(ticket.DeveloperID, ticket.Id);
-                    notificationHelper.AddAssignmentNotification(ticket);
+                    //notificationHelper.AddAssignmentNotification(ticket);
                     ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(ts => ts.Name == "Assigned").Id;
                 }
-                 
+
+                if (file != null)
+                {
+                    var fileName = DateTime.Now.Ticks + Path.GetFileName(file.FileName);
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    ticketAttachment.FilePath = "/Uploads/" + fileName;
+                }
+
                 ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
