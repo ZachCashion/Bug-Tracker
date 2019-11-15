@@ -212,13 +212,13 @@
                             @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                             {
                                 <div class="row">
-                                    <a href=@Url.Action("Edit", "Comments",new { id=comment.Id })>
+                                    <a href=@Url.Action("Edit", "TicketComments",new { id=comment.Id })>
                                         <div class=" btn btn-warning" style="width:100px; margin:15px;">
                                             Edit
                                         </div>
                                     </a>
 
-                                    <a href=@Url.Action("Delete", "Comments",new { id=comment.Id })>
+                                    <a href=@Url.Action("Delete", "TicketComments",new { id=comment.Id })>
                                         <div type="submit" class=" btn btn-danger" style="width:100px; margin:15px;">
                                             Delete
                                         </div>

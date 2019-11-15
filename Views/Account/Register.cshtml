@@ -29,100 +29,108 @@
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+        <div class="row justify-content-center">
+
+            <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                    </div>
+
+
+                                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal user", role = "form", enctype = "Multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-user", @placeholder = "First Name" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-user", @placeholder = "Last Name" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div>
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", @placeholder = "Email Address" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", @placeholder = "Password" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-user", @placeholder = "Confirm Password" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.TextBox("Avatar", null, new { type = "file" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div>
+                                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" />
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Register with Google
+                                        </a>
+                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                        </a>
+                                    }
+
+                                    <hr />
+
+                                    <div class="text-center">
+
+                                        @Html.ActionLink("Forgot password?", "ForgotPassword")
+
+                                    </div>
+                                    <div class="text-center">
+
+                                        @Html.ActionLink("Already have an account? Login!", "Login")
+
+                                    </div>
+
+
+                                </div>
                             </div>
-
-
-                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal user", role = "form", enctype = "Multipart/form-data" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary("", new { @class = "text-danger" })
-
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-user", @placeholder = "First Name"})
-                                    </div>
-                                    <div class="col-sm-6">
-                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-user", @placeholder = "Last Name"})
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div>
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", @placeholder = "Email Address" })
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", @placeholder = "Password" })
-                                    </div>
-                                    <div class="col-sm-6">
-                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-user", @placeholder = "Confirm Password" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-
-                                    </div>
-                                    <div class="col-sm-6">
-                                        @Html.TextBox("Avatar",null, new { type ="file"})
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" />
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
-                            }
-
-                            <hr />
-
-                            <div class="text-center">
-
-                                @Html.ActionLink("Forgot password?", "ForgotPassword")
-
-                            </div>
-                            <div class="text-center">
-
-                                @Html.ActionLink("Already have an account? Login!", "Login")
-
-                            </div>
-
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+            
+
 
     </div>
 
-    
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/Scripts/jquery.min.js"></script>
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="~/Scripts/jquery.easing.min.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="~/Scripts/jquery.min.js"></script>
+        <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="~/Scripts/sb-admin-2.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="~/Scripts/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="~/Scripts/sb-admin-2.min.js"></script>
 
 </body>
 

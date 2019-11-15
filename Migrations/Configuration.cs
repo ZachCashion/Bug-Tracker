@@ -139,6 +139,36 @@ namespace Bug_Tracker.Migrations
                     new TicketStatus { Name = "Resolved", Description = "" },
                     new TicketStatus { Name = "Archived", Description = "" }
                 );
+
+            //Preload Data
+            context.Projects.AddOrUpdate(
+                new Project {
+
+                }
+
+                );
+
+            context.Tickets.AddOrUpdate(
+                new Ticket { 
+
+                }
+
+                );
+
+            context.TicketAttachments.AddOrUpdate(
+                new TicketAttachment {
+
+                }
+
+                );
+
+            context.TicketComments.AddOrUpdate(
+                
+                new TicketComment {
+
+                }
+
+                );
         }
     }
 }

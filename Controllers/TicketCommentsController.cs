@@ -56,7 +56,9 @@ namespace Bug_Tracker.Controllers
                 ticketComment.Created = DateTime.Now;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var ticket = db.Tickets.Find(ticketComment.TicketID).Id;
+                return RedirectToAction("Details","Tickets", new { id = ticket });
             }
 
             ViewBag.TicketID = new SelectList(db.Tickets, "Id", "SubmiterId", ticketComment.TicketID);
@@ -92,7 +94,9 @@ namespace Bug_Tracker.Controllers
             {
                 db.Entry(ticketComment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var ticket = db.Tickets.Find(ticketComment.TicketID).Id;
+                return RedirectToAction("Details", "Tickets", new { id = ticket });
             }
             ViewBag.TicketID = new SelectList(db.Tickets, "Id", "SubmiterId", ticketComment.TicketID);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComment.UserId);
