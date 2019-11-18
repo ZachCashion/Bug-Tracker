@@ -93,10 +93,23 @@ namespace Bug_Tracker.Controllers
         // POST: /Account/EditProfile
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUserProfile([Bind(Include = "Id,FirstName,LastName,DisplayName,Email,UserName,PasswordHash,SecurityStamp")] ApplicationUser user)
+        public ActionResult EditUserProfile([Bind(Include = "Id,FirstName,LastName,DisplayName,Email,UserName,PasswordHash,SecurityStamp")] ApplicationUser user, HttpPostedFileBase avatar)
         {
             if (ModelState.IsValid)
             {
+                if (avatar != null)
+                {
+                    if (ImageUploadValidator.IsWebFriendlyImage(avatar))
+                    {
+                        var fileName = Path.GetFileName(avatar.FileName);
+                        var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                        justFileName = StringUtilities.URLFriendly(justFileName);
+                        fileName = $"{justFileName}_{DateTime.Now.Ticks}{Path.GetExtension(fileName)}";
+
+                        avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatar/"), fileName));
+                        user.AvatarPath = "/Avatar/" + fileName;
+                    }
+                }
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("UserProfile", "Account", new { id = User.Identity.GetUserId() });

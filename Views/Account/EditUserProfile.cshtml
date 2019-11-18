@@ -6,7 +6,7 @@
 
 <h2>Edit Profile</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditUserProfile", "Account", FormMethod.Post, new { enctype = "Multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -17,6 +17,7 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.PasswordHash)
         @Html.HiddenFor(model => model.SecurityStamp)
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -57,6 +58,14 @@
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.Label("File Upload", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("avatar", new { htmlAttributes = new { type= "file", id="avatar"} })
+                @Html.ValidationMessageFor(model => model.AvatarPath, "", new { @class = "text-danger" })
+            </div>
+        </div> 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

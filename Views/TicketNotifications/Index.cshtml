@@ -14,21 +14,7 @@
         @foreach (var item in Model)
         {
             <div>
-                <div class="dropdown-item d-flex align-items-center">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" style="width: 40px;" src="@item.Sender.AvatarPath" alt="">
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">@item.Sender.DisplayName.ToString() · @item.Created.ToString("MMM dd,yyyy")</div>
-                        <span class="font-weight-bold">@item.NotificationBody</span>
-                    </div>
-                    <div>@Html.DisplayFor(modelItem => item.IsRead)</div>
-                    <div>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </div>
-                </div>
+               
                 <div class="dropdown-list-image mr-3">
                     <img class="img-profile rounded-circle" style="width: 40px;" src="@item.Sender.AvatarPath" alt="">
                 </div>
