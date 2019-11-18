@@ -246,6 +246,7 @@
     <Content Include="Views\Admin\ManageProjects.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\EditUserProfile.cshtml" />
+    <None Include="Properties\PublishProfiles\MyBugTracker - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
