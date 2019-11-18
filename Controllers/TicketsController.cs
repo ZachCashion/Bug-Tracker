@@ -22,6 +22,7 @@ namespace Bug_Tracker.Controllers
         private TicketHistoryHelper historyHelper = new TicketHistoryHelper();
         private NotificationHelper notificationHelper = new NotificationHelper();
         private AttachmentHelper attachmentHelper = new AttachmentHelper();
+        private EmailHelper emailHelper = new EmailHelper();
 
         // GET: AssignTicket
         public ActionResult AssignTicket(int? id)
@@ -37,14 +38,14 @@ namespace Bug_Tracker.Controllers
         // Post: AssignTicket
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AssignTicket(Ticket model)
+        public ActionResult AssignTicket(Ticket model)
         {
             var ticket = db.Tickets.Find(model.Id);
             ticket.DeveloperID = model.DeveloperID;
             db.SaveChanges();
             var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);
-          
-            return RedirectToAction("Index");
+
+            return RedirectToAction("");
         }
 
         // GET: Tickets
