@@ -13,6 +13,7 @@ using Bug_Tracker.Helpers;
 using System.Net;
 using System.Data.Entity;
 using System.IO;
+using System.Web.Configuration;
 
 namespace Bug_Tracker.Controllers
 {
@@ -155,6 +156,27 @@ namespace Bug_Tracker.Controllers
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
+            }
+        }
+
+        // POST: /Account/DemoLoginAsync
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DemoLoginAsync(string emailKey)
+        {
+            var email = WebConfigurationManager.AppSettings[emailKey];
+            var password = WebConfigurationManager.AppSettings["DemoPassword"];
+
+            var result = await SignInManager.PasswordSignInAsync(email, password, false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Home");
+                case SignInStatus.Failure:
+                default:
+                    return RedirectToAction("Login", "Account");
             }
         }
 

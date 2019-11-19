@@ -71,12 +71,16 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Admin Functions</h6>
-                            <div class="nav-item active">
-                                <a class="collapse-item" href="@Url.Action("ManageRoles", "Admin")">
-                                    <i></i>
-                                    <span>Assign Roles</span>
-                                </a>
-                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="nav-item active">
+                                    <a class="collapse-item" href="@Url.Action("ManageRoles", "Admin")">
+                                        <i></i>
+                                        <span>Assign Roles</span>
+                                    </a>
+                                </div>
+                            }
+
                             <div class="nav-item active">
                                 <a class="collapse-item" href="@Url.Action("ManageProjects", "Admin")">
                                     <i></i>

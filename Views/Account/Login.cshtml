@@ -87,10 +87,52 @@
 
                                     <hr>
 
+                                    <div class="text-center">
+                                        <h3>Demo User Login</h3>
+                                    </div>
                                     <div>
-                                        <section id="socialLoginForm">
-                                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                                        </section>
+                                        <!-- <section id="socialLoginForm">@Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })</section> -->
+
+                                        <div class="form-group">
+                                            @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("emailKey","DemoAdminEmail")
+
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Admin</button>
+                                            }
+                                        </div>
+
+                                        <div class="form-group">
+                                            @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("emailKey","DemoManageEmail")
+
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Manager</button>
+                                            }
+                                        </div>
+
+                                        <div class="form-group">
+                                            @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("emailKey","DemoDevEmail")
+
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Developer</button>
+                                            }
+                                        </div>
+
+                                        <div class="form-group">
+                                            @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("emailKey","DemoSubEmail")
+
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Submitter</button>
+                                            }
+                                        </div>
+
                                     </div>
 
                                     <hr>
