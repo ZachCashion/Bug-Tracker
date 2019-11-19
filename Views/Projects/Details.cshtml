@@ -41,7 +41,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold">Tickets</h6>
-        <div><a class="" href="@Url.Action("")">Create Ticket</a></div>
+        <div><a class="" href="@Url.Action("Create","Tickets")">Create Ticket</a></div>
     </div>
     
     <div class="card-body">
@@ -79,9 +79,7 @@
                         <th>
                             @Html.DisplayName("Updated")
                         </th>
-                        <th>
-                            @Html.DisplayName("Ticket Attachments")
-                        </th>
+                        
                         <th></th>
                     </tr>
                 </thead>
@@ -119,9 +117,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => Ticket.Updated)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Ticket.TicketAttachments)
-                        </td>
+                        
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = Ticket.Id }) |
                             <a href="@Url.Action("Details","Tickets", new { id = Ticket.Id })">Detials</a> |
