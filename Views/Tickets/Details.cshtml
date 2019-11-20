@@ -70,31 +70,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-2">
-                        @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.Id)
-                            @Html.HiddenFor(model => model.SubmiterID)
-                            @Html.HiddenFor(model => model.ProjectId)
-                            @Html.HiddenFor(model => model.Created)
-                            @Html.HiddenFor(model => model.TicketStatusId)
-                            @Html.HiddenFor(model => model.Title)
-                            @Html.HiddenFor(model => model.Discription)
-                            @Html.HiddenFor(model => model.DeveloperID)
-                            @Html.HiddenFor(model => model.TicketTypeId)
-                            @Html.HiddenFor(model => model.TicketStatusId)
-
-                            <div class="form-group">
-                                @Html.Label("File Upload", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.Editor("file", new { htmlAttributes = new { type = "file", id = "fileUpload" } })
-                                    @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        }
-                        <a href="#" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="attachmentModal">
+                       
+                        <a href="#" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="#attachmentModal">
                             <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -191,15 +168,42 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Upload Attachment</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">
+                
+
+                @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.SubmiterID)
+                    @Html.HiddenFor(model => model.ProjectId)
+                    @Html.HiddenFor(model => model.Created)
+                    @Html.HiddenFor(model => model.TicketStatusId)
+                    @Html.HiddenFor(model => model.Title)
+                    @Html.HiddenFor(model => model.Discription)
+                    @Html.HiddenFor(model => model.DeveloperID)
+                    @Html.HiddenFor(model => model.TicketTypeId)
+                    @Html.HiddenFor(model => model.TicketStatusId)
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.Editor("file", new { htmlAttributes = new { type = "file", id = "fileUpload" } })
+                            @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="@Url.Action("CustomLogOff", "Account")">Logout</a>
+                <button class="btn btn-primary" type="submit">Upload</button>
             </div>
         </div>
     </div>
