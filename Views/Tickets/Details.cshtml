@@ -70,7 +70,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-2">
-                       
+
                         <a href="#" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="#attachmentModal">
                             <i class="fas fa-plus"></i>
                         </a>
@@ -89,78 +89,141 @@
     </div>
 </div>
 
-
-<!-- Comments -->
-
-@if (User.Identity.IsAuthenticated)
-{
-    <div id="addComment">
-        @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+        <!-- Comments -->
+        @if (User.Identity.IsAuthenticated)
         {
-            @Html.AntiForgeryToken()
-            @Html.Hidden("TicketId", Model.Id)
+            <div id="addComment">
+                @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TicketId", Model.Id)
+
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-2">
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group floating-label-form-group controls">
+                                        @Html.TextArea("CommentBody", new { placeholder = "Add Comment" })
+                                    </div>
+                                    <div>
+                                        <button type="submit" style="margin:10px;" class="btn btn-primary">Add Comment</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+
+        @foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
+        {
 
             <div class="row">
                 <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-2">
                     <div class="card shadow h-100 py-2">
                         <div class="card-body">
-                            <div class="form-group floating-label-form-group controls">
-                                @Html.TextArea("CommentBody", new { placeholder = "Add Comment" })
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-3 col-sm-2">
+                                    <img src="~/Images/avatarPlaceholder.png" class="" style="width:50px;">
+                                </div>
+                                <div class="col-9 col-sm-10">
+                                    <div class="small text-gray-500">DisplayName</div>
+                                    <div class="small text-gray-500">@comment.Created</div>
+                                    <div class="">@comment.CommentBody</div>
+                                </div>
                             </div>
-                            <div>
-                                <button type="submit" style="margin:10px;" class="btn btn-primary">Add Comment</button>
-                            </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <div class="row">
+                    <a href=@Url.Action("Edit", "TicketComments",new { id=comment.Id })>
+                        <div class=" btn btn-warning" style="width:100px; margin:15px;">
+                            Edit
+                        </div>
+                    </a>
+
+                    <a href=@Url.Action("Delete", "TicketComments",new { id=comment.Id })>
+                        <div type="submit" class=" btn btn-danger" style="width:100px; margin:15px;">
+                            Delete
+                        </div>
+                    </a>
+                </div>
+            }
+
         }
+
     </div>
+    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Change Made By")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Updated")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Propery")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("OldValue")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("NewValue")
+                                </th>
 
-}
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.TicketHistories.OrderByDescending(c => c.Updated))
+                        {
+                            <tr>
+                                <td>
+                                    @item.User.DisplayName
+                                </td>
+                                <td>
+                                    @item.Updated
+                                </td>
+                                <td>
+                                    @item.Propery
+                                </td>
+                                <td>
+                                    @item.OldValue
+                                </td>
+                                <td>
+                                    @item.NewValue
+                                </td>
 
-@foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
-{
-
-    <div class="row">
-        <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-2">
-            <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-3 col-sm-2">
-                            <img src="~/Images/avatarPlaceholder.png" class="" style="width:50px;">
-                        </div>
-                        <div class="col-9 col-sm-10">
-                            <div class="small text-gray-500">DisplayName</div>
-                            <div class="small text-gray-500">@comment.Created</div>
-                            <div class="">@comment.CommentBody</div>
-                        </div>
-                    </div>
+                            </tr>
+                        }
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-
-    if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-    {
-        <div class="row">
-            <a href=@Url.Action("Edit", "TicketComments",new { id=comment.Id })>
-                <div class=" btn btn-warning" style="width:100px; margin:15px;">
-                    Edit
-                </div>
-            </a>
-
-            <a href=@Url.Action("Delete", "TicketComments",new { id=comment.Id })>
-                <div type="submit" class=" btn btn-danger" style="width:100px; margin:15px;">
-                    Delete
-                </div>
-            </a>
-        </div>
-    }
-
-}
 
 
 <!-- Attachment Modal-->
@@ -174,7 +237,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                
+
 
                 @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post))
                 {
