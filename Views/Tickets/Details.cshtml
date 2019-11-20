@@ -25,43 +25,42 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                        <div href="#" class="btn btn-info btn-icon-split">
-                            <span class="icon small text">Project</span>
-                            <span class="small text">@Html.DisplayFor(model => model.Project.Name)</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div href="#" class="btn btn-info btn-icon-split">
-                            <span class="icon small text">Dev</span>
-                            <span class="small text">@Html.DisplayFor(model => model.Developer.DisplayName)</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div href="#" class="btn btn-info btn-icon-split">
-                            <span class="icon small text">Type</span>
-                            <span class="small text">@Html.DisplayFor(model => model.TicketType.Name)</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div href="#" class="btn btn-info btn-icon-split">
-                            <span class="icon small text">Submitter</span>
-                            <span class="small text">@Html.DisplayFor(model => model.Submiter.DisplayName)</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div href="#" class="btn btn-info btn-icon-split">
-                            <span class="icon small text">Status</span>
-                            <span class="small text">@Html.DisplayFor(model => model.TicketStatus.Name)</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div href="#" class="btn btn-info btn-icon-split">
+                    <div class="col-auto">
+                        <div class="btn btn-danger btn-icon-split" style="margin-bottom: 10px;">
                             <span class="icon small text">Priority</span>
                             <span class="small text">@Html.DisplayFor(model => model.TicketPriority.Name)</span>
                         </div>
                     </div>
-
+                    <div class="col-auto">
+                        <div class="btn btn-info btn-icon-split" style="margin-bottom: 10px;">
+                            <span class="icon small text">Project</span>
+                            <span class="small text" style="white-space: nowrap;">@Html.DisplayFor(model => model.Project.Name)</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn btn-secondary btn-icon-split" style="margin-bottom: 10px;">
+                            <span class="icon small text">Submitter</span>
+                            <span class="small text" style="white-space: nowrap;">@Html.DisplayFor(model => model.Submiter.DisplayName)</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn btn-success btn-icon-split" style="margin-bottom: 10px;">
+                            <span class="icon small text">Dev</span>
+                            <span class="small text" style="white-space: nowrap;">@Html.DisplayFor(model => model.Developer.DisplayName)</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn btn-light btn-icon-split" style="margin-bottom: 10px;">
+                            <span class="icon small text">Status</span>
+                            <span class="small text">@Html.DisplayFor(model => model.TicketStatus.Name)</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn btn-warning btn-icon-split" style="margin-bottom: 10px;">
+                            <span class="icon small text">Type</span>
+                            <span class="small text">@Html.DisplayFor(model => model.TicketType.Name)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -71,7 +70,31 @@
             <div class="container">
                 <div class="row">
                     <div class="col-2">
-                        <a href="#" class="btn btn-secondary btn-circle">
+                        @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.SubmiterID)
+                            @Html.HiddenFor(model => model.ProjectId)
+                            @Html.HiddenFor(model => model.Created)
+                            @Html.HiddenFor(model => model.TicketStatusId)
+                            @Html.HiddenFor(model => model.Title)
+                            @Html.HiddenFor(model => model.Discription)
+                            @Html.HiddenFor(model => model.DeveloperID)
+                            @Html.HiddenFor(model => model.TicketTypeId)
+                            @Html.HiddenFor(model => model.TicketStatusId)
+
+                            <div class="form-group">
+                                @Html.Label("File Upload", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.Editor("file", new { htmlAttributes = new { type = "file", id = "fileUpload" } })
+                                    @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        <a href="#" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="attachmentModal">
                             <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -91,7 +114,7 @@
 
 
 <!-- Comments -->
-    
+
 @if (User.Identity.IsAuthenticated)
 {
     <div id="addComment">
@@ -101,64 +124,47 @@
             @Html.Hidden("TicketId", Model.Id)
 
             <div class="row">
-                <div class="col">
-                    <div class="form-group floating-label-form-group controls">
-                        @Html.TextArea("CommentBody", new { rows = 5, cols = 50, placeholder = "Add Comment" })
+                <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-2">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="form-group floating-label-form-group controls">
+                                @Html.TextArea("CommentBody", new { placeholder = "Add Comment" })
+                            </div>
+                            <div>
+                                <button type="submit" style="margin:10px;" class="btn btn-primary">Add Comment</button>
+                            </div>
+
+                        </div>
                     </div>
-
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col">
-                    <button type="submit" style="margin:10px;" class="btn btn-primary">Add Comment</button>
-                </div>
-            </div>
-
         }
     </div>
-    <hr />
+
 }
-
-
-<div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-            
 
 @foreach (var comment in Model.TicketComments.OrderByDescending(c => c.Created))
 {
+
     <div class="row">
-        <div class="col-12 mx-auto">
+        <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-2">
             <div class="card shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
+                        <div class="col-3 col-sm-2">
                             <img src="~/Images/avatarPlaceholder.png" class="" style="width:50px;">
                         </div>
-                        <div class="col mr-2">
-                            <div class="small text-gray-500">DisplayName · @comment.Created</div>
-                            <div class="">@comment.CommentBody</div> 
+                        <div class="col-9 col-sm-10">
+                            <div class="small text-gray-500">DisplayName</div>
+                            <div class="small text-gray-500">@comment.Created</div>
+                            <div class="">@comment.CommentBody</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        
+
 
     if (User.IsInRole("Admin") || User.IsInRole("Manager"))
     {
@@ -176,6 +182,25 @@
             </a>
         </div>
     }
-                        
+
 }
-   
+
+
+<!-- Attachment Modal-->
+<div class="modal fade" id="attachmentModal" tabindex="-1" role="dialog" aria-labelledby="attachmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="@Url.Action("CustomLogOff", "Account")">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
