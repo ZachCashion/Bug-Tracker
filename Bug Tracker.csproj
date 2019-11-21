@@ -217,6 +217,7 @@
     <Content Include="Avatar\avatarPlaceholder.png" />
     <Content Include="Content\all.css" />
     <Content Include="Content\all.min.css" />
+    <Content Include="Content\dataTables.bootstrap4.min.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="favicon-16x16.png" />
@@ -228,8 +229,12 @@
     <Content Include="Images\undraw_posting_photo.svg" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\chart-area-demo.js" />
+    <Content Include="Scripts\chart-bar-demo.js" />
     <Content Include="Scripts\chart-pie-demo.js" />
     <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\datatables-demo.js" />
+    <Content Include="Scripts\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.easing.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\sb-admin-2.min.js" />

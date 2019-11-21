@@ -45,7 +45,7 @@
                                     </div>
 
 
-                                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal user", role = "form", enctype = "Multipart/form-data" }))
+                                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal user", role = "form"}))
                                     {
                                         @Html.AntiForgeryToken()
                                         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -72,26 +72,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-
-                                            </div>
-                                            <div class="col-sm-6">
-                                                @Html.TextBox("Avatar", null, new { type = "file" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
                                             <div>
                                                 <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" />
                                             </div>
                                         </div>
 
-                                        <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Register with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                        </a>
+                                       
                                     }
 
                                     <hr />
