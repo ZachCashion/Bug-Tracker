@@ -16,10 +16,6 @@
             <h4>@Html.DisplayFor(model => model.Title)</h4>
             <hr />
             <div class="small text-gray-500">Created · @Html.DisplayFor(model => model.Created)</div>
-            @if (!.Updated == null)
-            {
-
-            }
             <div class="small text-gray-500">Last Updated · @Html.DisplayFor(model => model.Updated)</div>
 
             <b>@Html.DisplayName("Discription:")</b>
@@ -81,9 +77,13 @@
                     @foreach (var attachment in Model.TicketAttachments.OrderByDescending(c => c.Created))
                     {
                         <div class="col-2" style="margin-bottom: 10px;">
-                            <a href="@attachment.FilePath">
-                                <img src="@AttachmentHelper.GetIcon(attachment.FilePath)" style="width: 40px;" />
-                            </a>
+                            <div>
+                                <a href="@attachment.FilePath">
+                                    <img src="@AttachmentHelper.GetIcon(attachment.FilePath)" style="width: 40px;" />
+                                </a>
+                            </div>
+                            
+                            @attachment.Summary
                         </div>
                     }
                 </div>
@@ -110,6 +110,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("TicketId", Model.Id)
+                    @Html.Hidden("UserId", User.Identity.Name)
 
                     <div class="row">
                         <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-2">
@@ -143,7 +144,7 @@
                                     <img src="~/Images/avatarPlaceholder.png" class="" style="width:50px;">
                                 </div>
                                 <div class="col-9 col-sm-10">
-                                    <div class="small text-gray-500">DisplayName</div>
+                                    <div class="small text-gray-500">@comment.User.DisplayName</div>
                                     <div class="small text-gray-500">@comment.Created</div>
                                     <div class="">@comment.CommentBody</div>
                                 </div>
@@ -164,7 +165,7 @@
                     </a>
 
                     <a href=@Url.Action("Delete", "TicketComments",new { id=comment.Id })>
-                        <div type="submit" class=" btn btn-danger" style="width:100px; margin:15px;">
+                        <div class=" btn btn-danger" style="width:100px; margin:15px;">
                             Delete
                         </div>
                     </a>

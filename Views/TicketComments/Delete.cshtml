@@ -11,20 +11,13 @@
     <h4>TicketComment</h4>
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Ticket.SubmiterId)
+            @Html.DisplayNameFor(model => model.User.DisplayName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Ticket.SubmiterId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
+            @Html.DisplayFor(model => model.User.DisplayName)
         </dd>
 
         <dt>
@@ -49,8 +42,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+           
         </div>
     }
 </div>

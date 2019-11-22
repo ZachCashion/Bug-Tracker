@@ -228,6 +228,7 @@ namespace Bug_Tracker.Controllers
                     {
                         TicketID = ticket.Id,
                         UserId = User.Identity.GetUserId(),
+                        Summary = Path.GetFileName(file.FileName),
                         Created = DateTime.Now,
                         FilePath = "/Uploads/" + fileName
                     };

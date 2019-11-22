@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Bug_Tracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Bug_Tracker.Controllers
 {
@@ -53,6 +54,7 @@ namespace Bug_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                ticketComment.UserId = User.Identity.GetUserId();
                 ticketComment.Created = DateTime.Now;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
@@ -124,9 +126,10 @@ namespace Bug_Tracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TicketComment ticketComment = db.TicketComments.Find(id);
+            var ticket = db.Tickets.Find(ticketComment.TicketID).Id;
             db.TicketComments.Remove(ticketComment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Tickets", new { id = ticket});
         }
 
         protected override void Dispose(bool disposing)

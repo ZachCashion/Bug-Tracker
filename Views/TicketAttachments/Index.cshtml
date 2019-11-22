@@ -5,54 +5,59 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Ticket Attachments</h2>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("File")
-        </th>
-        <th>
-            @Html.DisplayName("Submitter")
-        </th>
-        <th>
-            @Html.DisplayName("Ticket Title")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FilePath)
-        </th>
-        <th></th>
-    </tr>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold">Ticket Attachments</h6>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <a href="@item.FilePath">
-                <img src="@AttachmentHelper.GetIcon(item.FilePath)" style="width: 40px;"/>
-            </a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.DisplayName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FilePath)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("File")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Name")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Submitter")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Ticket Title")
+                        </th>
 
-</table>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@item.FilePath">
+                                <img src="@AttachmentHelper.GetIcon(item.FilePath)" style="width: 40px;" />
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Summary)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
