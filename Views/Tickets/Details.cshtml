@@ -16,6 +16,10 @@
             <h4>@Html.DisplayFor(model => model.Title)</h4>
             <hr />
             <div class="small text-gray-500">Created · @Html.DisplayFor(model => model.Created)</div>
+            @if (!.Updated == null)
+            {
+
+            }
             <div class="small text-gray-500">Last Updated · @Html.DisplayFor(model => model.Updated)</div>
 
             <b>@Html.DisplayName("Discription:")</b>
@@ -69,15 +73,14 @@
             <div><b>Attachments:</b></div>
             <div class="container">
                 <div class="row">
-                    <div class="col-2">
-
-                        <a href="#" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="#attachmentModal">
+                    <div class="col-2" style="margin-bottom: 10px;">
+                        <a href="#" class="btn btn-success btn-circle" data-toggle="modal" data-target="#attachmentModal">
                             <i class="fas fa-plus"></i>
                         </a>
                     </div>
                     @foreach (var attachment in Model.TicketAttachments.OrderByDescending(c => c.Created))
                     {
-                        <div class="col-2">
+                        <div class="col-2" style="margin-bottom: 10px;">
                             <a href="@attachment.FilePath">
                                 <img src="@AttachmentHelper.GetIcon(attachment.FilePath)" style="width: 40px;" />
                             </a>
@@ -113,7 +116,7 @@
                             <div class="card shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="form-group floating-label-form-group controls">
-                                        @Html.TextArea("CommentBody", new { placeholder = "Add Comment" })
+                                        @Html.TextArea("CommentBody", new { style = "width:100%;", placeholder = "Add Comment" })
                                     </div>
                                     <div>
                                         <button type="submit" style="margin:10px;" class="btn btn-primary">Add Comment</button>
@@ -239,20 +242,20 @@
             <div class="modal-body">
 
 
-                @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post))
+                @using (Html.BeginForm("AddAttachment", "Tickets", FormMethod.Post, new { enctype = "Multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.SubmiterID)
                     @Html.HiddenFor(model => model.ProjectId)
-                    @Html.HiddenFor(model => model.Created)
-                    @Html.HiddenFor(model => model.TicketStatusId)
+                    @Html.HiddenFor(model => model.TicketTypeId)
+                    @Html.HiddenFor(model => model.TicketPriorityId)
+                    @Html.HiddenFor(model => model.SubmiterID)
+                    @Html.HiddenFor(model => model.DeveloperID)
                     @Html.HiddenFor(model => model.Title)
                     @Html.HiddenFor(model => model.Discription)
-                    @Html.HiddenFor(model => model.DeveloperID)
-                    @Html.HiddenFor(model => model.TicketTypeId)
+                    @Html.HiddenFor(model => model.Created)
                     @Html.HiddenFor(model => model.TicketStatusId)
 
                     <div class="form-group">
@@ -261,12 +264,13 @@
                             @Html.ValidationMessageFor(model => model.TicketAttachments, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <button class="btn btn-primary" type="submit">Upload</button>
                 }
 
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" type="submit">Upload</button>
+                
             </div>
         </div>
     </div>

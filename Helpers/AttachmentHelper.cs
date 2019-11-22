@@ -30,41 +30,53 @@ namespace Bug_Tracker.Helpers
             var ext = Path.GetExtension(fileName);
             switch (ext)
             {
+                case ".css":
+                    imgPath = "/FileIcons/css.png";
+                    break;
+                case ".js":
+                    imgPath = "/FileIcons/javascript.png";
+                    break;
+                case ".html":
+                    imgPath = "/FileIcons/html.png";
+                    break;
                 case ".pdf":
-                    imgPath = "/Images/pdf.png";
+                    imgPath = "/FileIcons/pdf.png";
                     break;
                 case ".doc":
-                    imgPath = "/Images/doc.png";
+                    imgPath = "/FileIcons/doc.png";
                     break;
-                case ".dox":
-                    imgPath = "/Images/docx.png";
+                case ".docx":
+                    imgPath = "/FileIcons/doc.png";
                     break;
                 case ".xls":
-                    imgPath = "/Images/xls.png";
+                    imgPath = "/FileIcons/xls.png";
                     break;
                 case ".xlsx":
-                    imgPath = "/Images/xlsx.png";
+                    imgPath = "/FileIcons/xls.png";
                     break;
                 case ".txt":
-                    imgPath = "/Images/txt.png";
+                    imgPath = "/FileIcons/txt.png";
                     break;
                 case ".zip":
-                case ".rar":
+                    imgPath = "/FileIcons/zip.png";
+                    break;
                 case ".7z":
-                    imgPath = "/Images/zip.png";
+                    imgPath = "/FileIcons/zip.png";
                     break;
                 case ".xml":
-                    imgPath = "/Images/xml.jfif";
+                    imgPath = "/FileIcons/xml.jfif";
                     break;
                 case ".JPG":
                     imgPath = fileName;
                     break;
                 case ".gif":
+                    imgPath = fileName;
+                    break;
                 case ".png":
                     imgPath = fileName;
                     break;
                 default:
-                    imgPath = "/Images/blank.png";
+                    imgPath = "/FileIcons/file.png";
                     break;
             }
             return imgPath;

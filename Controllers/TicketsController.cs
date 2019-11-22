@@ -210,6 +210,42 @@ namespace Bug_Tracker.Controllers
             return View(ticket);
         }
 
+        // Post: Tickets/AddAttachment
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAttachment ([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,SubmiterId,DeveloperID,Title,Discription,Created")]Ticket ticket, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+                if (file != null)
+                {
+                    var fileName = DateTime.Now.Ticks + Path.GetFileName(file.FileName);
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+
+                    var attachment = new TicketAttachment
+                    {
+                        TicketID = ticket.Id,
+                        UserId = User.Identity.GetUserId(),
+                        Created = DateTime.Now,
+                        FilePath = "/Uploads/" + fileName
+                    };
+
+                    db.TicketAttachments.Add(attachment);
+                }
+
+                ticket.Updated = DateTime.Now;
+                db.Entry(ticket).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+                return RedirectToAction("Details","Tickets", new { id = ticket.Id });
+            }
+            return View(ticket);
+        }
+
         // GET: Tickets/Delete/5
         public ActionResult Delete(int? id)
         {
