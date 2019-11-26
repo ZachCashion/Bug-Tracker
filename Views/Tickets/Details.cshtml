@@ -99,6 +99,9 @@
     <li class="nav-item">
         <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="attachment-tab" data-toggle="tab" href="#attachment" role="tab" aria-controls="attachment" aria-selected="false">Attachments</a>
+    </li>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
@@ -226,6 +229,66 @@
             </div>
         </div>
     </div>
+
+    <div class="tab-pane fade" id="attachment" role="tabpanel" aria-labelledby="attachment-tab">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("File")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Submitter")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Created")
+                                </th>
+
+                                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                {
+                                    <th></th>
+                                }
+
+
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.TicketAttachments.OrderByDescending(c => c.Created))
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@item.FilePath">
+                                        <img src="@AttachmentHelper.GetIcon(item.FilePath)" style="width: 40px;" />
+                                    </a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Summary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.DisplayName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+
+                                @if (User.IsInRole("Admin") || User.IsInRole("Manager")) {
+                                    <td>
+                                        <a href="@Url.Action("Delete","TicketAttachments", new { id = item.Id })" class = "btn btn-danger">Delete</a>
+                                    </td>
+                                }
+                                
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -276,8 +339,3 @@
         </div>
     </div>
 </div>
-
-
-
-    
-    

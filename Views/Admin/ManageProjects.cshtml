@@ -3,94 +3,92 @@
     ViewBag.Title = "ManageProjects";
 }
 
-<h2>ManageProjects</h2>
-<div class="container">
-    
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
 
-        <div class="row">
-            <div class="col-md-6">
-                @Html.ListBox("Projects", null, new { @class = "form-control" })
 
-                <button type="submit" class="btn btn-primary">Assign</button>
-
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Assign Users to Projects</h6>
             </div>
- 
-            <div class="col-md-6">
-                @if (User.IsInRole("Admin"))
+            <div class="card-body">
+                @using (Html.BeginForm())
                 {
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Project Manager</h3>
+                    @Html.AntiForgeryToken()
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>Choose Project</h6>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.DropDownList("Manager", null, "--Select--", new { @class = "form-control" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.DropDownList("Projects", null, "--Select Project--", new { @class = "form-control" })
+                            </div>
                         </div>
+
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>Choose User</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.DropDownList("UserIds", null, "--Select User--", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <button type="submit" class="btn btn-primary" style="margin-top:10px;">Assign</button>
                     </div>
-                    <hr />
+                    
                 }
+            </div>
+        </div>
+    </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Developers</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        @Html.ListBox("Developers", null, new { @class = "form-control" })
-                    </div>
-                </div>
-                <hr />
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("User")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Project")
+                                </th>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Submitters</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        @Html.ListBox("Submitters", null, new { @class = "form-control" })
-                    </div>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @foreach (var name in item.ProjectNames)
+                                    {
+                                        @name <br />
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
                 </div>
             </div>
         </div>
-    }
-    
-       <div class="row">
-           <div class="col-md-12">
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayName("User")
-                        </th>
-                        <th>
-                            @Html.DisplayName("Project")
-                        </th>
-
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserName)
-                            </td>
-                            <td>
-                                @foreach(var name in item.ProjectNames)
-                                {
-                                    @name <br />
-                                }
-                            
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>    
-       </div>
-
-    
+    </div>
 </div>

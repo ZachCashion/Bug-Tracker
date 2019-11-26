@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Bug_Tracker.Helpers
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -11,14 +12,14 @@
 <!-- Content Row -->
 <div class="row">
 
-    <!-- Earnings (Monthly) Card Example -->
+    <!-- My Tickets -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">My Tickets</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">27</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -71,14 +72,14 @@
         </div>
     </div>
 
-    <!-- Pending Requests Card Example -->
+    <!-- My Projects -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">My Projects</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -341,6 +342,6 @@
                 });
             });
         });
-        
+
     </script>
 }

@@ -41,7 +41,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold">Tickets</h6>
-        <div><a class="" href="@Url.Action("Create","Tickets")">Create Ticket</a></div>
     </div>
     
     <div class="card-body">
@@ -68,13 +67,7 @@
                             @Html.DisplayName("Submiter")
                         </th>
                         <th>
-                            @Html.DisplayName("Assigned To")
-                        </th>
-                        <th>
                             @Html.DisplayName("Created")
-                        </th>
-                        <th>
-                            @Html.DisplayName("Updated")
                         </th>
                         
                         <th></th>
@@ -103,20 +96,14 @@
                             @Html.DisplayFor(modelItem => Ticket.Submiter.FirstName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => Ticket.Developer.DisplayName)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => Ticket.Created)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Ticket.Updated)
                         </td>
                         
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = Ticket.Id }) |
-                            <a href="@Url.Action("Details","Tickets", new { id = Ticket.Id })">Detials</a> |
-                            @Html.ActionLink("Delete", "Delete", new { id = Ticket.Id }) 
-                            
+                            <a href="@Url.Action("Details","Tickets", new { id = Ticket.Id })" class = "btn btn-success">Detials</a> |
+                            @Html.ActionLink("Edit", "Edit", new { id = Ticket.Id }, new { @class = "btn btn-warning" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = Ticket.Id }, new { @class = "btn btn-danger" })
+
                         </td>
                     </tr>
                 }

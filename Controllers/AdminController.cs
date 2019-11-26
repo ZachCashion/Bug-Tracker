@@ -17,7 +17,7 @@ namespace Bug_Tracker.Controllers
         // GET: ManageRoles
         public ActionResult ManageRoles()
         {
-            ViewBag.UserIds = new MultiSelectList(db.Users,"Id","Email");
+            ViewBag.UserIds = new MultiSelectList(db.Users,"Id","DisplayName");
             ViewBag.Role = new SelectList(db.Roles,"Name","Name");
 
             var users = new List<ManageRolesViewModel>();
@@ -25,7 +25,7 @@ namespace Bug_Tracker.Controllers
             {
                 users.Add(new ManageRolesViewModel
                 {
-                    UserName = $"{user.LastName},{user.FirstName}",
+                    UserName = $"{user.DisplayName}",
                     RoleName = roleHelper.ListUserRoles(user.Id).FirstOrDefault()
                 });
             }
@@ -68,12 +68,21 @@ namespace Bug_Tracker.Controllers
         public ActionResult ManageProjects()
         {
             ViewBag.Projects = new MultiSelectList(db.Projects,"Id","Name");
-            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer"),"Id","Email");
-            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter"), "Id", "Email");
+            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer"),"Id","DisplayName");
+            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter"), "Id", "DisplayName");
+
 
             if (User.IsInRole("Admin"))
             {
-                ViewBag.Manager = new SelectList(roleHelper.UsersInRole("Manager"), "Id", "Email");
+                ViewBag.UserIds = new SelectList(db.Users, "Id", "DisplayName");
+            }
+            else
+            {
+                List<ApplicationUser> users = new List<ApplicationUser>();
+                users.AddRange(roleHelper.UsersInRole("Developer").ToList());
+                users.AddRange(roleHelper.UsersInRole("Submitter").ToList());
+
+                ViewBag.UserIds = new SelectList(users, "Id", "DisplayName");
             }
 
             var myData = new List<ManageProjectsViewModel>();
@@ -82,7 +91,7 @@ namespace Bug_Tracker.Controllers
             {
                 userVm = new ManageProjectsViewModel
                 {
-                    UserName = $"{user.LastName},{user.FirstName}",
+                    UserName = $"{user.DisplayName}",
                     ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
                 };
 

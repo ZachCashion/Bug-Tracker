@@ -378,8 +378,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Graphing\" />
-    <Folder Include="Views\TicketHelper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
