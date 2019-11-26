@@ -67,11 +67,11 @@ namespace Bug_Tracker.Helpers
 
             switch (myRole)
             {
+                
                 case "Admin":
-                case "DemoAdmin":
                     myTickets.AddRange(db.Tickets);
                     break;
-                case "Project_Manager":
+                case "Manager":
                     myTickets.AddRange(user.Projects.SelectMany(p => p.Tickets));
                     break;
                 case "Developer":

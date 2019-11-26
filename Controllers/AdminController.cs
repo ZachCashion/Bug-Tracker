@@ -92,7 +92,7 @@ namespace Bug_Tracker.Controllers
                 userVm = new ManageProjectsViewModel
                 {
                     UserName = $"{user.DisplayName}",
-                    ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
+                    ProjectNames = projectsHelper.ListUserProjects().Select(p => p.Name).ToList()
                 };
 
                 if(userVm.ProjectNames.Count() == 0)
@@ -109,37 +109,18 @@ namespace Bug_Tracker.Controllers
         // POST: MangeProjects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageProjects(List<int> projects, string Manager, List<string> developers, List<string> submitters)
+        public ActionResult ManageProjects(List<int> projects, string UserIds)
         {
             if(projects != null)
             {
                 foreach(var projectId in projects)
                 {
-                    foreach(var user in projectsHelper.UsersOnProject(projectId).ToList())
+
+                    if (!string.IsNullOrEmpty(UserIds))
                     {
-                        projectsHelper.RemoveUserFromProject(user.Id, projectId);
+                        projectsHelper.AddUserToProject(UserIds, projectId);
                     }
 
-                    if (!string.IsNullOrEmpty(Manager))
-                    {
-                        projectsHelper.AddUserToProject(Manager, projectId);
-                    }
-
-                    if(developers != null)
-                    {
-                        foreach(var developerId in developers)
-                        {
-                            projectsHelper.AddUserToProject(developerId, projectId);
-                        }
-                    }
-
-                    if(submitters != null)
-                    {
-                        foreach (var submitterId in submitters)
-                        {
-                            projectsHelper.AddUserToProject(submitterId, projectId);
-                        }
-                    }
                 }
             }
             return RedirectToAction("ManageProjects", "Admin");

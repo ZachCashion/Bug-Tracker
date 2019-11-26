@@ -14,16 +14,28 @@ namespace Bug_Tracker.Helpers
     public class ProjectsHelper
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        private UserRolesHelper rolesHelper = new UserRolesHelper();
         public bool IsUserOnProject(string userId, int projectId)
         {
             var project = db.Projects.Find(projectId);
             var flag = project.ApplicationUsers.Any(u => u.Id == userId);
             return (flag);
         }
-        public ICollection<Project> ListUserProjects(string userId)
+        public ICollection<Project> ListUserProjects()
         {
-            ApplicationUser user = db.Users.Find(userId);
-            var projects = user.Projects.ToList();
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            var projects = new List<Project>();
+
+            var myRole = rolesHelper.ListUserRoles(userId).FirstOrDefault();
+            if (myRole == "Admin") {
+                projects.AddRange(db.Projects);
+            }
+            else
+            {
+                projects.AddRange(user.Projects);    
+            };
+
             return (projects);
         }
         public void AddUserToProject(string userId, int projectId)

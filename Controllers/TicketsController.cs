@@ -17,6 +17,7 @@ namespace Bug_Tracker.Controllers
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ProjectsHelper projectsHelper = new ProjectsHelper();
         private TicketHelper ticketHelper = new TicketHelper();
         private UserRolesHelper rolesHelper = new UserRolesHelper();
         private TicketHistoryHelper historyHelper = new TicketHistoryHelper();
@@ -80,8 +81,19 @@ namespace Bug_Tracker.Controllers
         // GET: Tickets/Create
         public ActionResult Create()
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
             ViewBag.DeveloperID = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            }
+            else
+            {
+                ViewBag.ProjectId = new SelectList(projectsHelper.ListUserProjects(), "Id", "Name");
+            }
+
             ViewBag.SubmiterId = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name");
