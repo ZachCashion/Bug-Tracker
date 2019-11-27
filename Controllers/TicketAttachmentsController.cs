@@ -119,7 +119,7 @@ namespace Bug_Tracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TicketAttachment ticketAttachment = db.TicketAttachments.Find(id);
-            var ticket = db.TicketAttachments.Find(ticketAttachment.TicketID).Id;
+            var ticket = ticketAttachment.TicketID;
             db.TicketAttachments.Remove(ticketAttachment);
             db.SaveChanges();
             return RedirectToAction("Details","Tickets", new { id = ticket });

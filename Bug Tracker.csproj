@@ -280,6 +280,15 @@
     <Content Include="Scripts\jquery.easing.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\sb-admin-2.min.js" />
+    <Content Include="Uploads\637094135550578118Profile.JPG" />
+    <Content Include="Uploads\637094246532369706Profile.JPG" />
+    <Content Include="Uploads\637100194189338354text.txt" />
+    <Content Include="Uploads\637100195118928324android-chrome-512x512.png" />
+    <Content Include="Uploads\637100200572109585index.html" />
+    <Content Include="Uploads\637100200697556142freelancer.css" />
+    <Content Include="Uploads\637100200881392996freelancer.js" />
+    <Content Include="Uploads\637100321571437210freelancer.js" />
+    <Content Include="Uploads\637102921910866743Dismiss Notifications.png" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="webfonts\fa-solid-900.woff2" />
@@ -294,6 +303,8 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\EditUserProfile.cshtml" />
     <None Include="Properties\PublishProfiles\MyBugTracker - Web Deploy.pubxml" />
+    <Content Include="Uploads\637100190921214217SRS - Financial Portal - 030318.pdf" />
+    <Content Include="Uploads\637100193796658367MVC - Blog Post Slugs Feature.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -377,7 +388,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
