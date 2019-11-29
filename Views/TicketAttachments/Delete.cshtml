@@ -12,27 +12,19 @@
     <div class="card-body">
         <h3>Are you sure you want to delete this?</h3>
         <div>
-            <h4>TicketAttachment</h4>
+            <h4>Attachment</h4>
             <hr />
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Ticket.SubmiterID)
+                    @Html.DisplayName("Submitter")
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Ticket.SubmiterID)
+                    @Html.DisplayFor(model => model.Ticket.Submiter.DisplayName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.User.FirstName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.User.FirstName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Summary)
+                    @Html.DisplayName("File Name")
                 </dt>
 
                 <dd>

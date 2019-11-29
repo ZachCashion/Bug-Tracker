@@ -147,8 +147,17 @@ namespace Bug_Tracker.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            }
+            else
+            {
+                ViewBag.ProjectId = new SelectList(projectsHelper.ListUserProjects(), "Id", "Name");
+            }
+
             ViewBag.DeveloperID = new SelectList(db.Users, "Id", "DisplayName", ticket.DeveloperID);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.SubmiterId = new SelectList(db.Users, "Id", "DisplayName", ticket.Submiter);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId);

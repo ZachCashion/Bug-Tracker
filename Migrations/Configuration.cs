@@ -141,34 +141,34 @@ namespace Bug_Tracker.Migrations
                 );
 
             //Preload Data
-            context.Projects.AddOrUpdate(
-                new Project {
+            //context.Projects.AddOrUpdate(
+               // new Project {
 
-                }
+               // }
 
-                );
+               // );
 
-            context.Tickets.AddOrUpdate(
-                new Ticket { 
+           // context.Tickets.AddOrUpdate(
+               // new Ticket { 
 
-                }
+               // }
 
-                );
+               // );
 
-            context.TicketAttachments.AddOrUpdate(
-                new TicketAttachment {
+            //context.TicketAttachments.AddOrUpdate(
+                //new TicketAttachment {
 
-                }
+                //}
 
-                );
+               // );
 
-            context.TicketComments.AddOrUpdate(
+            //context.TicketComments.AddOrUpdate(
                 
-                new TicketComment {
+               // new TicketComment {
 
-                }
+               // }
 
-                );
+               // );
         }
     }
 }

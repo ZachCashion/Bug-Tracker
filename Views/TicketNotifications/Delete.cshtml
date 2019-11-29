@@ -11,20 +11,13 @@
     <h4>TicketNotification</h4>
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Ticket.SubmiterId)
+            @Html.DisplayName("Sender")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Ticket.SubmiterId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
+            @Html.DisplayFor(model => model.Sender.DisplayName)
         </dd>
 
         <dt>
@@ -43,21 +36,13 @@
             @Html.DisplayFor(model => model.NotificationBody)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsRead)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsRead)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

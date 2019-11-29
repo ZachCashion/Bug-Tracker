@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Bug_Tracker.Models.TicketNotification>
+﻿@using Bug_Tracker.Helpers
+@model IEnumerable<Bug_Tracker.Models.TicketNotification>
 
 @{
     ViewBag.Title = "Notifications";
@@ -10,27 +11,38 @@
         <h6 class="m-0 font-weight-bold">Notifications</h6>
     </div>
     <div class="card-body">
-           
-        @foreach (var item in Model)
+        <hr />
+        @foreach (var item in NotificationHelper.GetUnReadNotifications())
         {
-            <div>
-               
-                <div class="dropdown-list-image mr-3">
-                    <img class="img-profile rounded-circle" style="width: 40px;" src="@item.Sender.AvatarPath" alt="">
-                </div>
-                <div>
-                    <div class="small text-gray-500">@item.Sender.DisplayName.ToString() · @item.Created.ToString("MMM dd,yyyy")</div>
-                    <span class="font-weight-bold">@item.NotificationBody</span>
-                    <div>@Html.DisplayFor(modelItem => item.IsRead)</div>
-                    <div>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            <div class="row">
+
+                <div class="col-xl-12 col-lg-8 col-md-10 col-sm-12 mb-2">
+
+
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-2 text-center">
+                            <img src="@item.Sender.AvatarPath" class="" style="width:40px;">
+                        </div>
+                        <div class="col-8 ">
+                            <div class="small text-gray-500">@item.Sender.DisplayName - @item.Created.ToString("MMM dd,yyyy")</div>
+                            <div class="">@item.NotificationBody</div>
+                        </div>
+                        <div class="col-2 text-center">
+                            <a href="@Url.Action("Delete", "TicketNotifications", new { id = item.Id })" class="btn btn-danger btn-circle">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </div>
                     </div>
+
+
                 </div>
+
             </div>
+
+            <hr />
         }
-            
+
     </div>
 </div>
 

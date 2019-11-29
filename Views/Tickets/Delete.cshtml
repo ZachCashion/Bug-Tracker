@@ -16,15 +16,15 @@
             <hr />
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Developer.FirstName)
+                    @Html.DisplayName("Developer")
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Developer.FirstName)
+                    @Html.DisplayFor(model => model.Developer.DisplayName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Project.Name)
+                    @Html.DisplayName("Project")
                 </dt>
 
                 <dd>
@@ -32,15 +32,15 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Submiter.FirstName)
+                    @Html.DisplayName("Submiter")
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Submiter.FirstName)
+                    @Html.DisplayFor(model => model.Submiter.DisplayName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.TicketPriority.Name)
+                    @Html.DisplayName("Ticket Priority")
                 </dt>
 
                 <dd>
@@ -48,7 +48,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.TicketStatus.Name)
+                    @Html.DisplayName("Ticket Status")
                 </dt>
 
                 <dd>
@@ -56,7 +56,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.TicketType.Name)
+                    @Html.DisplayName("Ticket Type")
                 </dt>
 
                 <dd>
@@ -102,7 +102,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-actions no-color">
-                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
                     @Html.ActionLink("Back to List", "Index")
                 </div>
             }
