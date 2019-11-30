@@ -4,53 +4,59 @@
     ViewBag.Title = "UserProfile";
 }
 
-<h2>Your Profile</h2>
+<div class="col-lg-6 col-sm-12">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold">Your Profile</h6>
+        </div>
+        <div class="card-body">
+            <div>
 
-<div>
+                <div class="text-center">
+                    <img src="@Html.DisplayFor(Model => Model.AvatarPath)" class="" style="width:120px;"> 
+                </div>
 
-    <hr />
-    <dl class="dl-horizontal">
+                <hr />
+                <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(Model => Model.FirstName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(Model => Model.FirstName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(Model => Model.FirstName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(Model => Model.FirstName)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(Model => Model.LastName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(Model => Model.LastName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(Model => Model.LastName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(Model => Model.LastName)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(Model => Model.DisplayName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(Model => Model.DisplayName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(Model => Model.DisplayName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(Model => Model.DisplayName)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(Model => Model.UserName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(Model => Model.UserName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(Model => Model.UserName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(Model => Model.UserName)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(Model => Model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(Model => Model.Email)
-        </dd>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Change your password", "ChangePassword", "Manage")
+            </p>
 
-    </dl>
+            <a class="btn btn-primary" href="@Url.Action("EditUserProfile","Account", new { id = User.Identity.GetUserId()})">Edit Profile</a>
+
+
+        </div>
+    </div>
+
 </div>
-<p>
-    @Html.ActionLink("Change your password", "ChangePassword", "Manage")
-</p>
-
-<a class="btn btn-primary" href="@Url.Action("EditUserProfile","Account", new { id = User.Identity.GetUserId()})">Edit Profile</a>
-

@@ -120,7 +120,7 @@
                             <div class="card shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="form-group floating-label-form-group controls">
-                                        @Html.TextArea("CommentBody", new { style = "width:100%;", placeholder = "Add Comment" })
+                                        @Html.TextArea("CommentBody", new { style = "width:100%; border-radius: .35rem;", placeholder = "Add Comment" })
                                     </div>
                                     <div>
                                         <button type="submit" style="margin:10px;" class="btn btn-primary">Add Comment</button>
@@ -144,11 +144,10 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col-3 col-sm-2">
-                                    <img src="~/Images/avatarPlaceholder.png" class="" style="width:50px;">
+                                    <img src="@comment.User.AvatarPath" class="" style="width:50px;">
                                 </div>
                                 <div class="col-9 col-sm-10">
-                                    <div class="small text-gray-500">@comment.User.DisplayName</div>
-                                    <div class="small text-gray-500">@comment.Created</div>
+                                    <div class="small text-gray-500">@comment.User.DisplayName - @comment.Created</div>
                                     <div class="">@comment.CommentBody</div>
                                 </div>
                             </div>
