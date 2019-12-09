@@ -54,5 +54,12 @@ namespace Bug_Tracker.Helpers
             }
             return resultList;
         }
+
+        public ICollection<ApplicationUser> ListAllUsers()
+        {
+            var List = userManager.Users.ToList();
+
+            return List;
+        }
     }
 }
