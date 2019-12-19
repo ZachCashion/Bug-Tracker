@@ -39,7 +39,7 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            
+
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="h3 sidebar-brand-text mx-3 text-primary">Bug Tracker</div>
                                         </div>
-                                       
+
                                     </div>
 
                                     <hr>
@@ -97,7 +97,7 @@
                                             @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
                                             {
                                                 @Html.AntiForgeryToken()
-                                                @Html.Hidden("emailKey","DemoAdminEmail")
+                                                @Html.Hidden("emailKey", "DemoAdminEmail")
 
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">Admin</button>
                                             }
@@ -107,7 +107,7 @@
                                             @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
                                             {
                                                 @Html.AntiForgeryToken()
-                                                @Html.Hidden("emailKey","DemoManageEmail")
+                                                @Html.Hidden("emailKey", "DemoManageEmail")
 
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">Manager</button>
                                             }
@@ -117,7 +117,7 @@
                                             @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
                                             {
                                                 @Html.AntiForgeryToken()
-                                                @Html.Hidden("emailKey","DemoDevEmail")
+                                                @Html.Hidden("emailKey", "DemoDevEmail")
 
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">Developer</button>
                                             }
@@ -127,7 +127,7 @@
                                             @using (Html.BeginForm("DemoLoginAsync", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal user", role = "form" }))
                                             {
                                                 @Html.AntiForgeryToken()
-                                                @Html.Hidden("emailKey","DemoSubEmail")
+                                                @Html.Hidden("emailKey", "DemoSubEmail")
 
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">Submitter</button>
                                             }
@@ -138,14 +138,14 @@
                                     <hr>
 
                                     <div class="text-center">
-                                        
-                                            @Html.ActionLink("Forgot password?", "ForgotPassword")
-                                        
+
+                                        @Html.ActionLink("Forgot password?", "ForgotPassword")
+
                                     </div>
                                     <div class="text-center">
-                                        
-                                            @Html.ActionLink("Create an Account!", "Register")
-                                        
+
+                                        @Html.ActionLink("Create an Account!", "Register")
+
                                     </div>
 
                                 </div>
@@ -169,6 +169,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/Scripts/sb-admin-2.min.js"></script>
+
+    <script>
+        if (performance.navigation.type == 2) {
+            location.reload(true);
+        }
+    </script>
 
 </body>
 
