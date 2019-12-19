@@ -37,26 +37,30 @@ namespace Bug_Tracker.Controllers
         //Post: ManageRoles
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageRoles(List<string> userIds, string role) 
+        public ActionResult ManageRoles([Bind(Include = "UserIds, Role")]List<string> userIds, string role) 
         {
-            //Step 1: Unenroll all the selected Users from ANY roles
-            //they may currently occupy
-            foreach(var userId in userIds) 
-            {
-                //What is the Role of this person??
-                var userRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
-                if(userRole != null) 
-                {
-                    roleHelper.RemoveUserFromRole(userId, userRole);
-                }
-            }
 
-            //Step 2: Add them back to the selected Role
-            if (!string.IsNullOrEmpty(role))
+            if (ModelState.IsValid)
             {
+                //Step 1: Unenroll all the selected Users from ANY roles
+                //they may currently occupy
                 foreach (var userId in userIds)
                 {
-                    roleHelper.AddUserToRole(userId, role);
+                    //What is the Role of this person??
+                    var userRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+                    if (userRole != null)
+                    {
+                        roleHelper.RemoveUserFromRole(userId, userRole);
+                    }
+                }
+
+                //Step 2: Add them back to the selected Role
+                if (!string.IsNullOrEmpty(role))
+                {
+                    foreach (var userId in userIds)
+                    {
+                        roleHelper.AddUserToRole(userId, role);
+                    }
                 }
             }
 

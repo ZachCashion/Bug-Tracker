@@ -5,13 +5,17 @@ namespace Bug_Tracker.Models
 {
     public class ManageRolesViewModel
     {
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public string RoleName { get; set; }
     }
 
     public class ManageProjectsViewModel
     {
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public List<string> ProjectNames { get; set; }
 
         public ManageProjectsViewModel()

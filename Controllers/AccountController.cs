@@ -125,6 +125,8 @@ namespace Bug_Tracker.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -165,6 +167,8 @@ namespace Bug_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DemoLoginAsync(string emailKey)
         {
+            
+
             var email = WebConfigurationManager.AppSettings[emailKey];
             var password = WebConfigurationManager.AppSettings["DemoPassword"];
 

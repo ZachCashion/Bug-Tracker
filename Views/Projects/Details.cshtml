@@ -101,8 +101,8 @@
                         
                         <td>
                             <a href="@Url.Action("Details","Tickets", new { id = Ticket.Id })" class = "btn btn-success">Details</a> |
-                            @Html.ActionLink("Edit", "Edit", new { id = Ticket.Id }, new { @class = "btn btn-warning" }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = Ticket.Id }, new { @class = "btn btn-danger" })
+                            <a href="@Url.Action("Edit", "Tickets", new { id = Ticket.Id })" class = "btn btn-warning">Edit</a> |
+                            <a href="@Url.Action("Delete", "Tickets", new { id = Ticket.Id })" class = "btn btn-danger">Delete</a>
 
                         </td>
                     </tr>

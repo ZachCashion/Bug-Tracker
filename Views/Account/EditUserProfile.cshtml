@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.Label("Upload Profile Picture", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Upload Profile Picture", htmlAttributes: new { @class = "control-label col-auto" })
                         <div class="col-md-10">
                             @Html.Editor("avatar", new { htmlAttributes = new { type = "file", id = "avatar" } })
                             @Html.ValidationMessageFor(model => model.AvatarPath, "", new { @class = "text-danger" })
