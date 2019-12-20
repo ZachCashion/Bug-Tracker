@@ -17,7 +17,7 @@ namespace Bug_Tracker.Controllers
         // GET: ManageRoles
         public ActionResult ManageRoles()
         {
-            ViewBag.UserIds = new MultiSelectList(db.Users,"Id","DisplayName");
+            ViewBag.UserId = new MultiSelectList(db.Users,"Id","DisplayName");
             ViewBag.Role = new SelectList(db.Roles,"Name","Name");
 
             var users = new List<ManageRolesViewModel>();
@@ -40,29 +40,22 @@ namespace Bug_Tracker.Controllers
         public ActionResult ManageRoles([Bind(Include = "UserIds, Role")]string userId, string role) 
         {
 
-            if (ModelState.IsValid)
+            if(!string.IsNullOrEmpty(userId) || !string.IsNullOrEmpty(role))
             {
-                //Step 1: Unenroll all the selected Users from ANY roles
-                //they may currently occupy
-                
-                if(!string.IsNullOrEmpty(userId) ^ !string.IsNullOrEmpty(role))
+                var userRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+                if (userRole != null)
                 {
-                    var userRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
-                    if (userRole != null)
-                    {
-                        roleHelper.RemoveUserFromRole(userId, userRole);
-                    }
-
-                    if (!string.IsNullOrEmpty(role))
-                    {
-                        roleHelper.AddUserToRole(userId, role);
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("ManageRoles", "Admin");
+                    roleHelper.RemoveUserFromRole(userId, userRole);
                 }
 
+                if (!string.IsNullOrEmpty(role))
+                {
+                    roleHelper.AddUserToRole(userId, role);
+                }
+            }
+            else
+            {
+                return RedirectToAction("ManageRoles", "Admin");
             }
 
             return RedirectToAction("ManageRoles", "Admin");
