@@ -77,7 +77,7 @@ namespace Bug_Tracker.Helpers
                 case "Developer":
                     myTickets.AddRange(db.Tickets.Where(t => t.DeveloperID == userId));
                     break;
-                case "Submiter":
+                case "Submitter":
                     myTickets.AddRange(db.Tickets.Where(t => t.SubmiterID == userId));
                     break;
             }
