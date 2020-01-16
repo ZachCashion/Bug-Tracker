@@ -90,7 +90,7 @@ namespace Bug_Tracker.Controllers
                 userVm = new ManageProjectsViewModel
                 {
                     UserName = $"{user.DisplayName}",
-                    ProjectNames = projectsHelper.ListUserProjects().Select(p => p.Name).ToList()
+                    ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
                 };
 
                 if(userVm.ProjectNames.Count() == 0)

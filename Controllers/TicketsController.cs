@@ -91,7 +91,7 @@ namespace Bug_Tracker.Controllers
             }
             else
             {
-                ViewBag.ProjectId = new SelectList(projectsHelper.ListUserProjects(), "Id", "Name");
+                ViewBag.ProjectId = new SelectList(projectsHelper.ListUserProjects(user.Id), "Id", "Name");
             }
 
             ViewBag.SubmiterId = new SelectList(db.Users, "Id", "FirstName");
@@ -138,6 +138,7 @@ namespace Bug_Tracker.Controllers
         // GET: Tickets/Edit/5
         public ActionResult Edit(int? id)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -154,7 +155,7 @@ namespace Bug_Tracker.Controllers
             }
             else
             {
-                ViewBag.ProjectId = new SelectList(projectsHelper.ListUserProjects(), "Id", "Name");
+                ViewBag.ProjectId = new SelectList(projectsHelper.ListUserProjects(user.Id), "Id", "Name");
             }
 
             ViewBag.DeveloperID = new SelectList(db.Users, "Id", "DisplayName", ticket.DeveloperID);

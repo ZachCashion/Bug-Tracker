@@ -21,9 +21,9 @@ namespace Bug_Tracker.Helpers
             var flag = project.ApplicationUsers.Any(u => u.Id == userId);
             return (flag);
         }
-        public ICollection<Project> ListUserProjects()
+        public ICollection<Project> ListUserProjects(string userId)
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
+            
             var user = db.Users.Find(userId);
             var projects = new List<Project>();
 
