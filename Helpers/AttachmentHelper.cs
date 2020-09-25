@@ -66,7 +66,7 @@ namespace Bug_Tracker.Helpers
                 case ".xml":
                     imgPath = "/FileIcons/xml.jfif";
                     break;
-                case ".JPG":
+                case ".jpg":
                     imgPath = fileName;
                     break;
                 case ".gif":
