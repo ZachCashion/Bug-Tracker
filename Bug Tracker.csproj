@@ -300,6 +300,7 @@
     <Content Include="Views\Admin\ManageProjects.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\EditUserProfile.cshtml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Properties\PublishProfiles\MyBugTracker - Web Deploy.pubxml" />
     <Content Include="Uploads\637100190921214217SRS - Financial Portal - 030318.pdf" />
     <Content Include="Uploads\637100193796658367MVC - Blog Post Slugs Feature.docx" />
